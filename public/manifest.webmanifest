@@ -1,0 +1,41 @@
+{
+	"name": "Skladnik",
+	"short_name": "Skladnik",
+	"icons": [
+		{
+			"src": "/img/logo512.svg",
+			"sizes": "512x512",
+			"type": "image/svg+xml",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "/img/logo480.png",
+			"sizes": "480x480",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "/img/logo192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "maskable any"
+		}
+	],
+	"scope": "/",
+	"start_url": "/",
+	"display": "standalone",
+	"orientation": "any",
+	"background_color": "#EE4224",
+	"theme_color": "#EE4224",
+	"description": "PWA Skladnik",
+	"dir": "ltr",
+	"lang": "sk",
+	"categories": [
+		"utilities"
+	],
+	"id": "p2l_skladnik",
+	"launch_handler": {
+		"client_mode": "navigate-existing"
+	},
+	"prefer_related_applications": false
+}
