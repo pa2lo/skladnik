@@ -17,11 +17,12 @@ import Modal from '@/Components/Modals/Modal.vue'
 import TextInput from '@/Components/Inputs/TextInput.vue'
 import TextareaInput from '@/Components/Inputs/TextareaInput.vue'
 import IcoButton from '@/Components/Elements/IcoButton.vue'
-import RadioButtons from '@/Components/Inputs/RadioButtons.vue'
+// import RadioButtons from '@/Components/Inputs/RadioButtons.vue'
 import AddChangeModal from './Partials/AddChangeModal.vue'
 import Icon from '@/Components/Elements/Icon.vue'
 import InputsRow from '@/Components/Inputs/InputsRow.vue'
 import NumberInput from '@/Components/Inputs/NumberInput.vue'
+import BasicSelectInput from '@/Components/Inputs/BasicSelectInput.vue'
 
 const props = defineProps({
 	items: Array
@@ -32,7 +33,7 @@ const filteredItems = computed(() => {
 	return props.items.filter(item => [item.name, item.code].some(i => i?.toLocaleLowerCase()?.includes(filter.value.toLocaleLowerCase())))
 })
 
-const unitOptions = [txt('pc'), 'kg', 'm']
+const unitOptions = [txt('pc'), 'kg', 'm', 'l']
 
 const newItemModal = ref(false)
 const form = useForm({
@@ -162,7 +163,7 @@ function getTooltipText(item) {
 				v-model="form.quantity"
 				:error="form.errors.quantity"
 			/>
-			<RadioButtons
+			<BasicSelectInput
 				:label="txt('Unit')"
 				:options="unitOptions"
 				v-model="form.unit"

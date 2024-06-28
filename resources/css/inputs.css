@@ -546,8 +546,8 @@
 
 /* fake inputs */
 .input-fake {
-	height: 0px;
-	margin: 0 1em;
+	height: 1px;
+	margin: -1px 1em 0;
 	width: calc(100% - 2em);
 	pointer-events: none;
 	overflow: hidden;

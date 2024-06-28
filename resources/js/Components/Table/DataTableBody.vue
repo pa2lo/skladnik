@@ -44,12 +44,12 @@ function getAlignClass(col) {
 				@click="col.props?.colClick && col.props?.colClick(item)"
 			>
 				<template v-if="col.props?.type == 'date' && col.props?.field">
-					<span :class="{'basic-link': col.props?.onClick || col.props?.link}">
+					<span :class="{'basic-link': col.props?.colClick || col.props?.link}">
 						{{ item[col.props.field] ? formatDate(item[col.props.field]) : '-' }}
 					</span>
 				</template>
 				<template v-else-if="col.props?.field">
-					<span :class="{'basic-link': col.props?.onClick || col.props?.link}">
+					<span :class="{'basic-link': col.props?.colClick || col.props?.link}">
 						{{ item[col.props.field] }}
 					</span>
 				</template>
