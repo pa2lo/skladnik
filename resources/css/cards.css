@@ -111,4 +111,11 @@
 .card-image-preview {
 	padding: 0;
 	--card-width: 60rem;
+	container-type: unset;
+	width: fit-content;
+}
+
+.modal-card:not(:has(.card-header)).card-image-preview .modal-button {
+	right: var(--line-gap);
+	top: var(--line-gap);
 }

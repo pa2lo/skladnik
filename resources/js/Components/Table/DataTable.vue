@@ -6,13 +6,17 @@ import DataTableHeaders from './DataTableHeaders.vue'
 import DataTableBody from './DataTableBody.vue'
 import Icon from '@/Components/Elements/Icon.vue'
 
+const model = defineModel()
+
 const props = defineProps({
 	items: [Boolean, Array],
 	rowClick: Function,
 	itemWord: {
 		type: String,
 		default: txt('data')
-	}
+	},
+	modelField: String,
+	modelDisabled: Boolean
 })
 
 const slots = useSlots()
@@ -42,8 +46,8 @@ let columns = computed(() => {
 	<div v-else-if="columns" class="table-outer line">
 		<div class="dataTable-wrapper">
 			<table class="dataTable">
-				<DataTableHeaders :columns="columns" />
-				<DataTableBody :items="items" :columns="columns" :rowClick="rowClick" />
+				<DataTableHeaders :items :columns v-model="model" :modelField :modelDisabled />
+				<DataTableBody :items :columns :rowClick v-model="model" :modelField :modelDisabled />
 			</table>
 		</div>
 	</div>

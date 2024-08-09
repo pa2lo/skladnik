@@ -36,8 +36,7 @@ const inputID = getUUID('toggle')
 			:disabled="disabled"
 			v-model="model"
 		/>
-		<label :for="inputID" v-if="$slots.default" class="input-title input-slot"><slot /></label>
-		<label :for="inputID" v-else class="input-title">{{ label }}</label>
+		<label :for="inputID" v-if="$slots.default || label" class="input-title" :class="{'input-slot': $slots.default}"><slot>{{ label }}</slot></label>
 		<Icon v-if="tooltip" v-tooltip.touch="tooltip" class="input-tooltip" name="circle-info" />
 	</div>
 </template>

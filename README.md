@@ -32,6 +32,12 @@ composert install
 npm install
 ```
 
+Then make .env file and new key:
+```
+cp .env.example .env
+php artisan key:generate
+```
+
 If you want to use SQLite, run:
 ```
 touch database/database.sqlite
@@ -59,7 +65,7 @@ or uncomment and visit admin/linkStorage route in routes/web.php. The destinatio
 
 ## Recommendations
 If you want to use this app in production, I highly recommend to:
-- **comment register routes** in routes/auth.php
+- set **REGISTRATION_ENABLED** variable in *.env* to false
 - in production **remove components routes** from routes/web.php
 - in production **remove components menu group** from resources/js/Layouts/AuthenticatedLayout.vue
 - when building JS for production **delete Components folder** with component examples in resources/js/Pages

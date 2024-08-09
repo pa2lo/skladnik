@@ -406,7 +406,7 @@ const showDropdownInfo = ref(false)
 const dropdownCodeExample = `<Dropdown label="Dropdown">
  <DropdownLink icon="boxes" label="Dashboard" link="dashboard" />
  <DropdownLink icon="users" label="Users" link="/users" />
- <DropdownLink label="Dialog" @click="dialog.info('ok')" />
+ <DropdownLink label="Dialog" @click="dialog.info('ok')" color="error" />
  <hr>
  <DropdownLink closeable label="Option 1" :checked="dropdownOption == 1" @click="setDropdownOption(1)" />
  <DropdownLink disabled label="Option 2" :checked="dropdownOption == 2" @click="setDropdownOption(2)" />
@@ -439,6 +439,10 @@ const dropdownProps = [
 		note: 'immediate close on first click'
 	}, {
 		name: 'focusFirst',
+		type: 'Boolean',
+		default: false
+	}, {
+		name: 'disabled',
 		type: 'Boolean',
 		default: false
 	}
@@ -480,6 +484,11 @@ const dropdownLinkProps = [
 		type: 'Boolean',
 		default: false,
 		note: 'close dropdown on click'
+	}, {
+		name: 'color',
+		type: 'String',
+		default: 'heading',
+		note: 'available: primary | secondary | success | warning | danger | info | error'
 	}
 ]
 const dropdownLinkSlots = [
@@ -602,7 +611,7 @@ const dropdownLinkSlots = [
 				<Dropdown label="Dropdown">
 					<DropdownLink icon="users" label="link 1" link="/" />
 					<DropdownLink disabled label="Disabled" link="/dashboard" />
-					<DropdownLink icon="boxes" label="link 2" link="dashboard" />
+					<DropdownLink icon="boxes" label="link 2" link="dashboard" color="error" />
 					<DropdownLink label="link 3 - w onclick" @click="dialog.info('ok')" />
 					<hr>
 					<DropdownLink closeable label="Option 1" :checked="dropdownOption == 1" @click="setDropdownOption(1)" />
@@ -613,7 +622,10 @@ const dropdownLinkSlots = [
 					<hr>
 					<DropdownLink label="link 4" link="dashboard" />
 				</Dropdown>
-				<Dropdown label="Dropdown" element="icon" icon="dots" title="Show dropdown" class="aaaaa">
+				<Dropdown label="Disabled" :disabled="true">
+					Some dropdown content Some dropdown content Some dropdown content Some dropdown content
+				</Dropdown>
+				<Dropdown label="Dropdown" element="icon" icon="dots" title="Show dropdown">
 					Some dropdown content Some dropdown content Some dropdown content Some dropdown content
 				</Dropdown>
 				<Dropdown>

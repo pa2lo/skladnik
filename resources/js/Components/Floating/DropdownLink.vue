@@ -11,7 +11,11 @@ const props = defineProps({
 	linkParam: [String, Number],
 	disabled: Boolean,
 	checked: Boolean,
-	closeable: Boolean
+	closeable: Boolean,
+	color: {
+		tyoe: String,
+		default: 'heading'
+	}
 })
 
 const isBasicLink = typeof props.link == "string" && ['https://', 'http://', '#'].some(l => props.link?.startsWith(l))
@@ -30,11 +34,14 @@ function onLeave(e) {
 		:href="link ? getHref(link, linkParam) : null"
 		:type="link ? null : 'button'"
 		class="dropdown-link flex ai-c clickable"
-		:class="{
-			isChecked: checked,
-			isDisabled: disabled,
-			isCloseableLink: closeable
-		}"
+		:class="[
+			`dropdown-link-${color}`,
+			{
+				isChecked: checked,
+				isDisabled: disabled,
+				isCloseableLink: closeable
+			}
+		]"
 		@mouseenter="onEnter"
 		@mouseleave="onLeave"
 		:disabled="disabled"

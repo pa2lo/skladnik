@@ -226,6 +226,14 @@
 	rotate: 45deg;
 	margin-top: -0.1875em;
 }
+.input-cb:indeterminate::before {
+	width: 0.875em;
+	margin-bottom: -.1875em;
+	height: 0;
+	border: none;
+	border-bottom: .1875em solid var(--toggle-background, var(--input-background));
+	rotate: none;
+}
 .input-radio::before {
 	width: 0.625em;
 	height: 0.625em;
@@ -241,11 +249,11 @@
 	background-color: var(--input-border);
 }
 
-:is(.input-cb, .input-radio, .input-toggle):checked {
+:is(.input-cb, .input-radio, .input-toggle):is(:checked, :indeterminate) {
 	background-color: var(--accent);
 	border-color: var(--accent);
 }
-:is(.input-cb, .input-radio):checked::before {
+:is(.input-cb, .input-radio):is(:checked, :indeterminate)::before {
 	scale: 1;
 	opacity: 1;
 }
@@ -398,12 +406,15 @@
 
 .input-radio-button.isSelected {
 	--clr: var(--accent-override, var(--link-color));
+	--background-override: var(--accent-override);
+	color: color-mix(in srgb, var(--clr), var(--light, #000 20%) var(--dark, #fff 30%));
 }
 .input-radio-button:not(.isReadOnly, .isDisabled):hover, .input-radio-button.isSelected {
 	background-color: color-mix(in srgb, var(--background-override, var(--link-color)) 14%, var(--card-background) 86%);
 }
-.input-radio-button.isSelected {
-	--background-override: var(--accent-override);
+.buttonsSolid .input-radio-button.isSelected {
+	background-color: var(--accent-override, var(--link-color));
+	color: var(--accent-contrast, var(--input-background));
 }
 .input-radio-button.isSelected:not(.isDisabled) {
 	cursor: default;
@@ -414,21 +425,27 @@
 
 .input-radio-primary {
 	--accent-override: var(--primary);
+	--accent-contrast: #fff;
 }
 .input-radio-secondary {
 	--accent-override: var(--secondary);
+	--accent-contrast: #fff;
 }
 .input-radio-info {
 	--accent-override: var(--info-color);
+	--accent-contrast: #fff;
 }
 .input-radio-warning {
 	--accent-override: var(--warn-color);
+	--accent-contrast: #fff;
 }
 .input-radio-danger {
 	--accent-override: var(--danger-color);
+	--accent-contrast: #fff;
 }
 .input-radio-success {
 	--accent-override: var(--success-color);
+	--accent-contrast: #fff;
 }
 .input-radio-heading {
 	--accent-override: var(--heading-color);
@@ -561,7 +578,7 @@
 	inset: auto 0 0;
 }
 .input-fake-select {
-	padding: 0 1.5em 0 .25em;
+	padding: 0 2.25em 0 .25em;
 }
 
 /* inputs row */
@@ -587,6 +604,9 @@
 	.input-horizontal, .input-horizontal-simple {
 		display: grid;
 		align-items: center;
+	}
+	.input-horizontal .input-outer {
+		grid-column: 2;
 	}
 	.input-note-horizontal {
 		padding-left: min(35%, 14rem);

@@ -2,10 +2,16 @@
 import { formatDate, getHref } from '@/Utils/helpers'
 import { Link } from '@inertiajs/vue3'
 
+import SimpleCheckbox from '../Inputs/SimpleCheckbox.vue';
+
+const model = defineModel()
+
 defineProps({
 	columns: Array,
 	items: Array,
-	rowClick: Function
+	rowClick: Function,
+	modelField: String,
+	modelDisabled: Boolean
 })
 
 function getAlignClass(col) {
@@ -30,6 +36,12 @@ function getAlignClass(col) {
 			@click="rowClick && rowClick(item)"
 		>
 			<td
+				v-if="modelField"
+				class="dataTable-col dataTable-col-cb"
+			>
+				<SimpleCheckbox v-model="model" :value="item[modelField]" :disabled="modelDisabled" />
+			</td>
+			<td
 				v-for="col in columns"
 				class="dataTable-col"
 				:class="[
@@ -44,12 +56,12 @@ function getAlignClass(col) {
 				@click="col.props?.colClick && col.props?.colClick(item)"
 			>
 				<template v-if="col.props?.type == 'date' && col.props?.field">
-					<span :class="{'basic-link': col.props?.colClick || col.props?.link}">
+					<span :class="{'basic-link': col.props?.colClick || col.props?.link || col?.props?.cellClass?.includes('isClickable')}">
 						{{ item[col.props.field] ? formatDate(item[col.props.field]) : '-' }}
 					</span>
 				</template>
 				<template v-else-if="col.props?.field">
-					<span :class="{'basic-link': col.props?.colClick || col.props?.link}">
+					<span :class="{'basic-link': col.props?.colClick || col.props?.link || col?.props?.cellClass?.includes('isClickable')}">
 						{{ item[col.props.field] }}
 					</span>
 				</template>

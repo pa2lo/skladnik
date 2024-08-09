@@ -350,6 +350,11 @@ const selectProps = [...inputSharedProps.filter(i => ['label', 'name', 'required
 	type: 'Boolean',
 	default: false,
 	note: 'show search input in options'
+}, {
+	name: 'showCount',
+	type: 'Boolean',
+	default: false,
+	note: 'show number of selected items instead of items itself'
 }]
 const selectSlots = [...inputSharedSlots, {
 	name: 'option',
@@ -381,7 +386,12 @@ const radioButtonsCodeExample = `const options = [{
 <RadioButtons label="Radio buttons 2" :options="options" v-model="radioButtonsModel" error="Buttons row error" />
 <RadioButtons label="Radio buttons 3" :options="options" v-model="radioButtonsModel" readOnly />
 <RadioButtons label="Radio buttons 4" :options="options" v-model="radioButtonsModel" disabled />`
-const radioButtonsProps = [...inputSharedProps.filter(i => ['label', 'name', 'required', 'disabled', 'readOnly', 'error', 'options', 'horizontal', 'full', 'tooltip'].includes(i.name))]
+const radioButtonsProps = [...inputSharedProps.filter(i => ['label', 'name', 'required', 'disabled', 'readOnly', 'error', 'options', 'horizontal', 'full', 'tooltip'].includes(i.name)), {
+	name: 'solid',
+	type: 'Boolean',
+	default: false,
+	note: 'selected option with solid color'
+}]
 
 const showSimpleCheckboxInfo = ref(false)
 const showSimpleToggleInfo = ref(false)
@@ -394,6 +404,11 @@ const simpleCheckboxSlots = [{
 	name: 'default',
 	default: 'label prop',
 	note: 'text'
+}]
+const simpleCheckboxExpose = [{
+	name: 'setIndeterminate',
+	parameters: 'boolean',
+	note: 'set indeterminate state'
 }]
 
 const showGroupInputInfo = ref(false)
@@ -597,6 +612,7 @@ const textEditorProps =  [...inputSharedProps.filter(i => ['label', 'name', 'req
 				<SelectInput label="Select disabled" disabled :options="selectOptions" modelValue="option2" />
 				<SelectInput label="Select multiple disabled" disabled :options="selectOptions" :modelValue="['option2', 'option4']" />
 				<SelectInput label="Select multiple readOnly" readOnly :options="selectOptions" :modelValue="['option2', 'option4']" />
+				<SelectInput label="Select multiple showCount" :options="selectOptions" v-model="selectInputMultipleTest" showCount />
 			</div>
 			<Modal v-model:open="showSelectInfo" header="SelectInput component">
 				<div>
@@ -618,6 +634,8 @@ const textEditorProps =  [...inputSharedProps.filter(i => ['label', 'name', 'req
 				<RadioButtons label="Select option with error & colors" :options="radioButtonsOptionsColored" v-model="radioButtonsTest" error="Buttons row error" />
 				<RadioButtons label="Select option (readOnly)" :options="radioButtonsOptions" v-model="radioButtonsTest" readOnly />
 				<RadioButtons label="Select option (disabled)" :options="radioButtonsOptions" v-model="radioButtonsTest" disabled />
+				<RadioButtons label="Select option solid with colors" :options="radioButtonsOptionsColored" v-model="radioButtonsTest" solid />
+				<RadioButtons label="Select option solid (disabled)" :options="radioButtonsOptions" v-model="radioButtonsTest" solid disabled />
 			</div>
 			<Modal v-model:open="showRadioButtonsInfo" header="RadioButtons component">
 				<div>
@@ -688,6 +706,7 @@ const textEditorProps =  [...inputSharedProps.filter(i => ['label', 'name', 'req
 				</div>
 				<TableProps header="Props" :properties="simpleCheckboxProps" />
 				<TableProps header="Slots" :properties="simpleCheckboxSlots" />
+				<TableProps header="Exposed functions" :properties="simpleCheckboxExpose" hideDefaults />
 			</Modal>
 		</Card>
 		<Card header="SimpleToggle">

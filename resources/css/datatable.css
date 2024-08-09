@@ -6,10 +6,7 @@
 }
 
 .table-top, .table-info {
-	flex-wrap: wrap;
-}
-.table-top, .table-info {
-	gap: 0.75rem 1rem;
+	gap: var(--line-gap) 1rem;
 	flex-wrap: wrap-reverse;
 }
 
@@ -62,6 +59,9 @@
 	margin-right: 0.125rem;
 }
 
+.dataTable-col-cb {
+	width: 1rem;
+}
 .dataTable-th.isEmpty {
 	padding-inline: 0;
 }
@@ -80,7 +80,11 @@
 	width: 12rem;
 }
 
-.table-info > .input-wrapper {
+:is(.dataTable-col.ta-c, .dataTable-th-cb, .dataTable-col-cb) :is(.input-radio, .input-toggle, .input-cb) {
+	margin: 0 auto;
+}
+
+.table-info > :is(.input-wrapper, .button) {
 	margin-top: 0;
 	flex: 1 1 auto;
 }

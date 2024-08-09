@@ -21,8 +21,11 @@ const props = defineProps({
 	},
 	options: Array,
 	allowEmpty: Boolean,
-	searchable: Boolean
+	searchable: Boolean,
+	showCount: Boolean
 })
+
+const emit = defineEmits(['change'])
 
 let inputID = getUUID('select')
 
@@ -81,20 +84,23 @@ function selectOption(value) {
 	if (props.disabled || props.readOnly) return
 
 	if (isMulti) {
-		if (model.value.includes(value)) deselectOption(value)
+		if (model.value.some(v => v == value)) deselectOption(value)
 		else {
 			model.value.push(value)
 			requestAnimationFrame(() => setCoords())
+			emit('change')
 		}
 	} else {
 		model.value = value
 		isOpen.value = false
+		emit('change')
 	}
 }
 function deselectOption(value) {
 	if (props.disabled || props.readOnly) return
 
 	model.value = model.value.filter(i => i != value)
+	emit('change')
 	if (!model.value.length && (document.activeElement != inputEl.value)) focusInputEl()
 	if (isOpen.value) {
 		requestAnimationFrame(() => setCoords())
@@ -214,20 +220,21 @@ function afterEnter() {
 			@focusout="onFocusout"
 		>
 			<Transition name="fade" mode="out-in">
-				<span v-if="!model || (isMulti && !model.length)" class="input-placeholder">{{ placeholder }}</span>
+				<span v-if="(!model && !options.some(o => o.value == model)) || (isMulti && !model.length)" class="input-placeholder">{{ placeholder }}</span>
 				<template v-else>
-					<span v-if="isMulti" class="input-checked-options">
+					<span v-if="isMulti && !showCount" class="input-checked-options">
 						<TransitionGroup name="checked-options">
 							<Tag v-for="option in checkedOptions" :key="option.value" color="link" :clearable="!disabled && !readOnly" @keydown.enter.stop="deselectOption(option.value)" @click.stop="deselectOption(option.value)" :title="`Deselect option - ${option.title}`">{{ option.title }}</Tag>
 						</TransitionGroup>
 					</span>
+					<span v-else-if="isMulti && showCount">{{ checkedOptions.length }} selected</span>
 					<span v-else>{{ checkedOptions.title }}</span>
 				</template>
 			</Transition>
 			<span class="input-select-toggle"></span>
 		</div>
 		<select class="input-fake input-fake-select" :value="model" :required="required" :id="`fake-${inputID}`" tabindex="-1">
-			<option v-if="allowEmpty" value="">{{ placeholder }}</option>
+			<option>{{ placeholder }}</option>
 			<option v-for="o in options" :value="o.value">{{ o.title }}</option>
 		</select>
 		<Teleport v-if="destination" :to="destination">
@@ -270,7 +277,7 @@ function afterEnter() {
 					<SelectInputOption
 						v-for="option in filteredOptions"
 						:id="`listitem-${inputID}-${option.value}`"
-						:checked="isMulti ? model.includes(option.value) : model == option.value"
+						:checked="isMulti ? model.some(v => v == option.value) : model == option.value"
 						:disabled="option.disabled"
 						:current="focusedOption == option.value"
 						:value="option.value"

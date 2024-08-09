@@ -8,7 +8,7 @@ defineProps({
 	error: String,
 	horizontal: Boolean,
 	full: Boolean,
-	tooltip: String
+	tooltip: [Object, String]
 })
 </script>
 

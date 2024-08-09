@@ -112,4 +112,8 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+	/**
+	 * Registration routes enabled
+	 */
+	'registration_enabled' => env('REGISTRATION_ENABLED', false),
 ];

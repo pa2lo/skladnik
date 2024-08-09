@@ -21,7 +21,7 @@ const itemsCount = computed(() => {
 </script>
 
 <template>
-	<div v-if="$slots.buttons || $slots.info || count" class="table-top line flex ai-c">
+	<div v-if="$slots.buttons || $slots.info || $slots.default || count" class="table-top line flex ai-c">
 		<div v-if="$slots.default || typeof count == 'number'" class="table-info flex ai-c">
 			<slot />
 			<h5 v-if="typeof count == 'number'" class="m0">{{ itemsCount }}</h5>

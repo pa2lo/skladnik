@@ -1,7 +1,7 @@
 <script setup>
-import { onMounted } from 'vue'
 import { Head } from '@inertiajs/vue3'
-import { installInit, installPrompt, installApp } from '@/Utils/store'
+
+import { useAppInstaller } from '@/Composables/AppInstaller'
 
 import ApplicationLogo from '@/Components/Elements/ApplicationLogo.vue'
 import Card from '@/Components/Elements/Card.vue'
@@ -11,15 +11,7 @@ defineProps({
 	header: String
 })
 
-onMounted(() => {
-	if (!installInit.value) {
-		installInit.value = true
-		window.addEventListener('beforeinstallprompt', (e) => {
-			e.preventDefault()
-			installPrompt.value = e
-		})
-	}
-})
+const { installPrompt } = useAppInstaller()
 </script>
 
 <template>

@@ -1,8 +1,9 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { Head } from '@inertiajs/vue3'
-import { installInit, installPrompt, installApp } from '@/Utils/store'
 import { txt } from '@/Utils/helpers'
+
+import { useAppInstaller } from '@/Composables/AppInstaller'
 
 import ApplicationLogo from '@/Components/Elements/ApplicationLogo.vue'
 import Icon from '@/Components/Elements/Icon.vue'
@@ -22,15 +23,7 @@ defineProps({
 	}
 })
 
-onMounted(() => {
-	if (!installInit.value) {
-		installInit.value = true
-		window.addEventListener('beforeinstallprompt', (e) => {
-			e.preventDefault()
-			installPrompt.value = e
-		})
-	}
-})
+const { installPrompt, installApp } = useAppInstaller()
 
 let menuOpen = ref(false)
 let isDark = ref(document.cookie.includes('theme=dark') || (window.matchMedia('(prefers-color-scheme: dark)').matches && !document.cookie.includes('theme=light')))

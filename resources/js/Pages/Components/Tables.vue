@@ -112,12 +112,11 @@ function addItemToTableData() {
 	toast.success(`Item added`, {message: name})
 }
 function deleteItemFromTableData(data) {
-	let index = tableData.value.findIndex(i => i.id == data.id)
-	if (index == -1) return
-
-	tableData.value.splice(index, 1)
+	tableData.value = tableData.value.filter(i => i.id != data.id)
 	toast.success(`Item deleted`, {message: data.name})
 }
+
+const tableModel = ref([])
 
 const showPaginationInfo = ref(false)
 const paginationCodeExample = `const paginationLinks = [
@@ -222,17 +221,19 @@ const dataTableCodeExample = `const items = [
  }, {
   name: 'Item 2',
   value: 30,
-  created: 1710308361547
+  created: 1710508361547
  }
 ]
 
-<DataTable :items="filteredTableData">
+const tableModel = ref([])
+
+<DataTable :items="filteredTableData" v-model="tableModel" modelField="created">
  <Column type="icon">
   <template #default="{ data }">
    <Icon :name="data.value > 50 ? 'circle-check' : 'circle-x'" />
   </template>
  </Column>
- <Column header="Name" field="name" link="dashboard" />
+ <Column header="Name" field="name" link="dashboard" linkParam="created" />
  <Column header="Value" field="value" align="center" />
  <Column header="Date" field="created" type="date" />
  <Column type="buttons">
@@ -254,6 +255,15 @@ const dataTableProps = [
 		type: 'String',
 		default: 'data',
 		note: 'label for no items'
+	}, {
+		name: 'modelField',
+		type: 'String',
+		note: 'key of item object for row checkbox'
+	}, {
+		name: 'modelDisabled',
+		type: 'Boolean',
+		default: false,
+		note: 'disable row checkbox - only if v-model and modelField are set'
 	}
 ]
 const tableColumnProps = [
@@ -275,7 +285,7 @@ const tableColumnProps = [
 	}, {
 		name: 'linkParam',
 		type: 'String',
-		note: 'link parameter'
+		note: 'key of item object link parameter'
 	}, {
 		name: 'align',
 		type: 'String',
@@ -369,7 +379,7 @@ const filterTagsSlots = [
 			<template #actions>
 				<IcoButton icon="code" v-tooltip="'Code & info'" transparent @click="showDataTableInfo = true" />
 			</template>
-			<DataTable :items="filteredTableData">
+			<DataTable :items="filteredTableData" v-model="tableModel" modelField="created">
 				<template v-if="tableDataFilter && tableData.length" #emptyCont>
 					<h3>No results for "{{ tableDataFilter }}"</h3>
 					<p><Button icon="x" variant="outline" @click="tableDataFilter = ''">Reset filter</Button></p>
@@ -383,7 +393,7 @@ const filterTagsSlots = [
 						<Icon v-else class="color-error" name="circle-x" />
 					</template>
 				</Column>
-				<Column header="Name" field="name" link="dashboard" />
+				<Column header="Name" field="name" link="dashboard" linkParam="created" />
 				<Column header="Value" align="center" field="value" />
 				<Column header="Date" type="date" field="created" />
 				<Column type="buttons">

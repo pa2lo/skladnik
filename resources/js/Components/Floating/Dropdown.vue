@@ -19,7 +19,8 @@ const props = defineProps({
 		default: 'left'
 	},
 	closeOnClick: Boolean,
-	focusFirst: Boolean
+	focusFirst: Boolean,
+	disabled: Boolean
 })
 
 const togglerEl = ref(null)
@@ -49,7 +50,7 @@ function setCoords() {
 }
 
 function toggleDropdown(e) {
-	if (isOpen.value) return closeDropdown()
+	if (isOpen.value || props.disabled) return closeDropdown()
 
 	togglerEl.value = e.target.closest('.dropdown-toggler')
 
@@ -124,10 +125,10 @@ function onConfirmHandler(e) {
 </script>
 
 <template>
-	<div v-if="$slots.toggler" class="dropdown-toggler clickable" :class="{isOpen: isOpen}" @mousedown.prevent="toggleDropdown" v-bind="$attrs" tabindex="0">
+	<div v-if="$slots.toggler" class="dropdown-toggler clickable" :class="{isOpen: isOpen, isDisabled: disabled}" @mousedown.prevent="toggleDropdown" v-bind="$attrs" tabindex="0">
 		<slot name="toggler" />
 	</div>
-	<component v-else :is="element == 'button' ? Button : IcoButton" :class="{isOpen: isOpen}" class="dropdown-toggler" :icon="element == 'button' ? togglerIcon : icon" :iconRight="element == 'button' ? icon : null" @click.prevent="toggleDropdown" v-bind="$attrs" tabindex="0" />
+	<component v-else :is="element == 'button' ? Button : IcoButton" :class="{isOpen: isOpen, isDisabled: disabled}" class="dropdown-toggler" :icon="element == 'button' ? togglerIcon : icon" :iconRight="element == 'button' ? icon : null" @click.prevent="toggleDropdown" :disabled="disabled" v-bind="$attrs" tabindex="0" />
 	<Teleport v-if="destination" :to="destination">
 		<Transition name="fade" @enter="focusDropdown">
 			<div
