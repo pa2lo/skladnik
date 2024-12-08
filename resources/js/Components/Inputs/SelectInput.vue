@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, computed, getCurrentInstance } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { getUUID, txt } from '@/Utils/helpers'
 
 import InputWrapper from './InputWrapper.vue'
@@ -114,7 +114,7 @@ function selectOption(value) {
 		}
 	} else {
 		model.value = value
-		isOpen.value = false
+		focusInputEl(true)
 		emit('change', value)
 	}
 }
