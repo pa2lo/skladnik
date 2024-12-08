@@ -125,6 +125,7 @@ h5, .likeH5 { font-size: 1.125rem; }
 *.ai-c { align-items: center; }
 *.aj-c { align-items: center; justify-content: center; }
 *.as-c { align-self: center; }
+*.as-e { align-self: flex-end; }
 .grow { flex: 1 1 auto; }
 .nowrap { white-space: nowrap; }
 
@@ -134,6 +135,7 @@ h5, .likeH5 { font-size: 1.125rem; }
 *.mb-a { margin-bottom: auto; }
 *.m0 { margin: 0; }
 *.mt07 { margin-top: .75rem; }
+*.mt06 { margin-top: .625rem; }
 *.mt05 { margin-top: .5rem; }
 *.mt03 { margin-top: .375rem; }
 *.mt01 { margin-top: .1875rem; }
@@ -200,7 +202,7 @@ button, input, div[tabindex], .clickable, .isClickable, .isLabel {
 .authenticated-layout-narrow {
 	--contentWidth: 50rem;
 }
-.authenticated-header, .page-main {
+.authenticated-header, .page-main, .page-subtitle {
 	max-width: var(--contentWidth);
 	margin-inline: auto;
 }

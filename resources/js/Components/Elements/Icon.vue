@@ -82,6 +82,11 @@ defineProps({
 		<line x1="12" y1="7" x2="12" y2="13"></line>
 		<line x1="12" y1="17" x2="12.01" y2="17"></line>
 	</svg>
+	<svg v-else-if="name == 'circle-question'" class="icon icon-question" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path d="M8.99999 10C8.99999 8.34315 10.3431 7 12 7C13.6569 7 15 8.34315 15 10C15 10.9814 14.5288 11.8527 13.8003 12.4C13.0718 12.9473 12.5 13 12 14" />
+		<line x1="12" y1="17" x2="12.01" y2="17"></line>
+		<circle cx="12" cy="12" r="11" />
+	</svg>
 	<svg v-else-if="name == 'right'" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
 		<path d="M9 6l6 6l-6 6"></path>
 	</svg>
@@ -119,45 +124,45 @@ defineProps({
 	</svg>
 	<svg v-else-if="name == 'circle-check-animated'" class="icon icon-success-animated color-success" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
 		<g transform="rotate(-90 12 12)">
-			<circle stroke-dasharray="69.5" stroke-dashoffset="69.5" cx="12" cy="12" r="11"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.25s" dur="0.5s" values="70;0"/></circle>
+			<circle stroke-dasharray="69.5" stroke-dashoffset="69.5" cx="12" cy="12" r="11"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.1s" dur="0.4s" values="70;0"/></circle>
 		</g>
-		<path stroke-dasharray="14" stroke-dashoffset="14" d="M8 12L11 15L16 9"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.25s" values="14;0"/></path>
+		<path stroke-dasharray="14" stroke-dashoffset="14" d="M8 12L11 15L16 9"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.3s" dur="0.2s" values="14;0"/></path>
 	</svg>
 	<svg v-else-if="name == 'circle-info-animated'" class="icon icon-info-animated color-info" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 		<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2">
 			<g transform="rotate(-90 12 12)">
-				<circle stroke-dasharray="69.5" stroke-dashoffset="69.5" cx="12" cy="12" r="11"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.25s" dur="0.5s" values="70;0"/></circle>
+				<circle stroke-dasharray="69.5" stroke-dashoffset="69.5" cx="12" cy="12" r="11"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.1s" dur="0.4s" values="70;0"/></circle>
 			</g>
 			<g transform="rotate(-180 12 12)">
-				<path stroke-dasharray="8" stroke-dashoffset="8" d="M12 7V13"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.25s" values="8;0"/></path>
+				<path stroke-dasharray="8" stroke-dashoffset="8" d="M12 7V13"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.3s" dur="0.2s" values="8;0"/></path>
 			</g>
 		</g>
-		<circle cx="12" cy="7" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.7s" dur="0.1s" values="0;1"/></circle>
+		<circle cx="12" cy="7" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.45s" dur="0.1s" values="0;1"/></circle>
 	</svg>
 	<svg v-else-if="name == 'circle-alert-animated'" class="icon icon-error-animated color-warn" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 		<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2">
 			<g transform="rotate(-90 12 12)">
-				<circle stroke-dasharray="69.5" stroke-dashoffset="69.5" cx="12" cy="12" r="11"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.25s" dur="0.5s" values="70;0"/></circle>
+				<circle stroke-dasharray="69.5" stroke-dashoffset="69.5" cx="12" cy="12" r="11"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.1s" dur="0.4s" values="70;0"/></circle>
 			</g>
-			<path stroke-dasharray="8" stroke-dashoffset="8" d="M12 7V13"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.25s" values="8;0"/></path>
+			<path stroke-dasharray="8" stroke-dashoffset="8" d="M12 7V13"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.3s" dur="0.2s" values="8;0"/></path>
 		</g>
-		<circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.7s" dur="0.1s" values="0;1"/></circle>
+		<circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.45s" dur="0.1s" values="0;1"/></circle>
 	</svg>
 	<svg v-else-if="name == 'circle-x-animated'" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-x color-danger" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
 		<g transform="rotate(-90 12 12)">
-			<circle stroke-dasharray="69.5" stroke-dashoffset="69.5" cx="12" cy="12" r="11"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.25s" dur="0.5s" values="70;0"/></circle>
+			<circle stroke-dasharray="69.5" stroke-dashoffset="69.5" cx="12" cy="12" r="11"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.1s" dur="0.4s" values="70;0"/></circle>
 		</g>
-		<line stroke-dasharray="9" stroke-dashoffset="9" x1="15" y1="9" x2="9" y2="15"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.15s" values="8;0"/></line>
-		<line stroke-dasharray="9" stroke-dashoffset="9" x1="9" y1="9" x2="15" y2="15"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.65s" dur="0.15s" values="8;0"/></line>
+		<line stroke-dasharray="9" stroke-dashoffset="9" x1="15" y1="9" x2="9" y2="15"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.3s" dur="0.15s" values="8;0"/></line>
+		<line stroke-dasharray="9" stroke-dashoffset="9" x1="9" y1="9" x2="15" y2="15"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.45s" dur="0.15s" values="8;0"/></line>
 	</svg>
 	<svg v-else-if="name == 'circle-question-animated'" class="icon icon-question-animated color-link" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 		<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2">
 			<g transform="rotate(-90 12 12)">
-				<circle stroke-dasharray="69.5" stroke-dashoffset="69.5" cx="12" cy="12" r="11"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.25s" dur="0.5s" values="70;0"/></circle>
+				<circle stroke-dasharray="69.5" stroke-dashoffset="69.5" cx="12" cy="12" r="11"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.1s" dur="0.4s" values="70;0"/></circle>
 			</g>
-			<path stroke-dasharray="20" stroke-dashoffset="20" d="M8.99999 10C8.99999 8.34315 10.3431 7 12 7C13.6569 7 15 8.34315 15 10C15 10.9814 14.5288 11.8527 13.8003 12.4C13.0718 12.9473 12.5 13 12 14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.35s" values="20;0"/></path>
+			<path stroke-dasharray="20" stroke-dashoffset="20" d="M8.99999 10C8.99999 8.34315 10.3431 7 12 7C13.6569 7 15 8.34315 15 10C15 10.9814 14.5288 11.8527 13.8003 12.4C13.0718 12.9473 12.5 13 12 14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.3s" dur="0.2s" values="20;0"/></path>
 		</g>
-		<circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin=".8s" dur="0.1s" values="0;1"/></circle>
+		<circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin=".45s" dur="0.1s" values="0;1"/></circle>
 	</svg>
 	<svg v-else-if="name == 'plus'" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
 		<path d="M12 5l0 14"></path>
@@ -261,5 +266,22 @@ defineProps({
 	<svg v-else-if="name == 'clock'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clock">
 		<path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
 		<path d="M12 7v5l3 3" />
+	</svg>
+	<svg v-else-if="name == 'refresh'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-refresh">
+		<path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+		<path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+	</svg>
+	<svg v-else-if="name == 'article'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-article">
+		<path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+		<path d="M7 8h10" />
+		<path d="M7 12h10" />
+		<path d="M7 16h10" />
+	</svg>
+	<svg v-else-if="name == 'settings'" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
+		<path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
+		<path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+	</svg>
+	<svg v-else-if="name == 'folder-open'" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-folder-open">
+		<path d="M5 19l2.757 -7.351a1 1 0 0 1 .936 -.649h12.307a1 1 0 0 1 .986 1.164l-.996 5.211a2 2 0 0 1 -1.964 1.625h-14.026a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2h4l3 3h7a2 2 0 0 1 2 2v2" />
 	</svg>
 </template>

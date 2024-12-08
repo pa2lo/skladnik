@@ -157,3 +157,8 @@ blockquote {
 .button[data-mce-selected="inline-boundary"] {
 	background-color: var(--button-background);
 }
+
+hr {
+	border-top: 1px solid var(--bor);
+	margin-block: calc(var(--line-gap) + .25em);
+}

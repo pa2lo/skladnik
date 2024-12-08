@@ -19,7 +19,7 @@
 	transition: border-color .1s, color .1s;
 }
 .dashboard-link-ico {
-	font-size: 3.5em;
+	font-size: 4em;
 	color: var(--link-color);
 }
 .dashboard-link-title {
@@ -47,6 +47,9 @@
 .dashboard-links-horizontal .dashboard-link-title {
 	margin: 0;
 }
+.dashboard-links-horizontal .dashboard-link-ico {
+	font-size: 3.5em;
+}
 
 @media (pointer: fine) {
 	.dashboard-link::before {
@@ -71,15 +74,18 @@
 	width: 100%;
 	border: 1px solid var(--border);
 	border-radius: 0.375em;
-	overflow: hidden;
+	overflow: auto;
 	border-spacing: 0;
 	line-height: 1.25;
 }
 .infoTable th {
 	text-align: left;
 }
-.infoTable :is(th, td):not(:last-child) {
-	border-right: 1px solid var(--border);
+.infoTable tr {
+	background: var(--card-background);
+}
+.infoTable :is(th, td):not(:first-child) {
+	border-left: 1px solid var(--border);
 }
 .infoTable td {
 	border-top: 1px solid var(--border);
@@ -87,7 +93,7 @@
 .infoTable :is(th, td) {
 	padding: .5rem .75rem;
 }
-.infoTable thead {
+.infoTable thead tr {
 	background: var(--link-light-bg);
 }
 .infoTable tr:hover {
@@ -95,13 +101,20 @@
 }
 .infoTable-copy {
 	cursor: pointer;
-}
-.infoTable-copy {
 	width: 10rem;
 }
 .infoTable-type, .infoTable-default {
-	width: 6rem;
+	min-width: 6rem;
 }
-.infoTable-copy:hover {
+.infoTable .infoTable-buttons {
+	padding: 0 .5rem;
+	width: 0;
+	white-space: nowrap;
+	position: sticky;
+	right: 0;
+	background: inherit;
+	z-index: 1;
+}
+.docHintTable tr:hover .infoTable-highlight-onRow, .infoTable-highlight:hover, .infoTable-copy:hover {
 	color: var(--link-color);
 }

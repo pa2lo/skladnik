@@ -92,9 +92,19 @@ const tableData = ref([
 		created: 1710408361547
 	}, {
 		id: 'item2',
-		name: 'Item 2',
+		name: 'Item 2 disabled',
 		value: 30,
 		created: 1710508361547
+	}, {
+		id: 'item3',
+		name: 'Item 3',
+		value: 40,
+		created: 1710608361547
+	}, {
+		id: 'item4',
+		name: 'Item 4 loading',
+		value: 60,
+		created: 1710708361547
 	}
 ])
 const filteredTableData = computed(() => {
@@ -264,6 +274,16 @@ const dataTableProps = [
 		type: 'Boolean',
 		default: false,
 		note: 'disable row checkbox - only if v-model and modelField are set'
+	}, {
+		name: 'disabledRows',
+		type: 'Array',
+		default: '[]',
+		note: 'Array of modelField ids to disable table row'
+	}, {
+		name: 'loadingRows',
+		type: 'Array',
+		default: '[]',
+		note: 'Array of modelField ids to show row loading'
 	}
 ]
 const tableColumnProps = [
@@ -274,7 +294,7 @@ const tableColumnProps = [
 		name: 'type',
 		type: 'String',
 		default: 'default',
-		note: 'available: default | date | icon | buttons'
+		note: 'available: default | date | icon | buttons | input'
 	}, {
 		name: 'field',
 		type: 'String',
@@ -379,7 +399,7 @@ const filterTagsSlots = [
 			<template #actions>
 				<IcoButton icon="code" v-tooltip="'Code & info'" transparent @click="showDataTableInfo = true" />
 			</template>
-			<DataTable :items="filteredTableData" v-model="tableModel" modelField="created">
+			<DataTable :items="filteredTableData" v-model="tableModel" modelField="created" :disabledRows="[1710508361547]" :loadingRows="[1710708361547]">
 				<template v-if="tableDataFilter && tableData.length" #emptyCont>
 					<h3>No results for "{{ tableDataFilter }}"</h3>
 					<p><Button icon="x" variant="outline" @click="tableDataFilter = ''">Reset filter</Button></p>

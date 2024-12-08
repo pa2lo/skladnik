@@ -42,7 +42,7 @@ const dialogInfo = () => dialog.info('Dialog info')
 const dialogSuccess = () => dialog.success('Dialog success')
 const dialogWarning = () => dialog.warning('Dialog warning')
 const dialogError = () => dialog.error('Dialog error')
-const dialogImage = () => dialog.image('/img/example.jpg', 'example.jpg')
+const dialogImage = () => dialog.image(`${window.location.origin}/img/example.jpg`, 'example.jpg')
 
 function errorToast() {
 	toast.error('Error toast w click', {

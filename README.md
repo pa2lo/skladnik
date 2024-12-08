@@ -77,3 +77,31 @@ App supports export to XLS with rap2hpoutre/fast-excel package. If you dont need
 composer install
 composer dump-autoload
 ```
+
+## Update 12/24
+- added *downloadFile* helper function
+- added *BasicColorInput* component
+- added *IcoButtonCopy* component
+- added *DeleteForm* composable
+- added *input* type, *disabledRows* and *loadingRows* props to *dataTable*
+- added *subtitle* prop to *AuthenticatedLayout*
+- added *center* prop to tabs
+- added *trim* prop to *TextInput*
+- added *sameWidth* prop to *RadioButtons*
+- added *hideButtons* prop to *NumberInput*
+- added *circle* prop to *IcoButton*
+- added *labelNote* prop to InputWrapper (all inputs)
+- updated *SelectInput* - added *searchPlaceholder, searchableFields, noItemsText, loading, searchThrottle* props and *search* event
+- other bug fixes and improvements
+
+## Update 9/24
+- added *REGISTRATION_ENABLED* .env variable
+- added *disabled* prop to *Dropdown*
+- added *color* prop to *DropdownLink*
+- added *solid* prop to *RadioButtons*
+- added *showCount* prop to *SelectInput*
+- added *setIndeterminate* exposed function to *SimpleCheckbox*
+- added *modelDisabled, modelField* props and *v-model* to *DataTable*
+- added *AppForms* composable
+- added *AppInstaller* composable
+- other bug fixes and improvements

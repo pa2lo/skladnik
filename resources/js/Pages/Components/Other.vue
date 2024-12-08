@@ -28,7 +28,7 @@ const accordionData = {
 	'Key2': 'Value2',
 }
 
-const iconsArr = ['x', 'menu', 'user-edit', 'dashboard', 'info2', 'moon', 'sun', 'logout', 'eye', 'eye-off', 'copy', 'check', 'circle-check', 'circle-x', 'circle-info', 'circle-alert', 'right', 'double-right', 'left', 'double-left', 'down', 'up', 'back', 'edit', 'trash', 'circle-check-animated', 'circle-info-animated', 'circle-alert-animated', 'circle-x-animated', 'circle-question-animated', 'plus', 'minus', 'archive', 'external-link', 'mail', 'stack', 'history', 'plusminus', 'users', 'save', 'print', 'download', 'github', 'components', 'boxes', 'code', 'search', 'dots', 'calendar', 'filter', 'clock']
+const iconsArr = ['x', 'menu', 'user-edit', 'dashboard', 'info2', 'moon', 'sun', 'logout', 'eye', 'eye-off', 'copy', 'check', 'circle-check', 'circle-x', 'circle-info', 'circle-alert', 'circle-question', 'right', 'double-right', 'left', 'double-left', 'down', 'up', 'back', 'edit', 'trash', 'circle-check-animated', 'circle-info-animated', 'circle-alert-animated', 'circle-x-animated', 'circle-question-animated', 'plus', 'minus', 'archive', 'external-link', 'mail', 'stack', 'history', 'plusminus', 'users', 'save', 'print', 'download', 'github', 'components', 'boxes', 'code', 'search', 'dots', 'calendar', 'filter', 'clock', 'refresh', 'article', 'settings', 'folder-open']
 
 async function copy(val) {
 	await navigator.clipboard.writeText(val).then(() => {
@@ -242,6 +242,9 @@ const spacingClasses = [
 		name: 'mt07',
 		note: 'margin top .75rem'
 	}, {
+		name: 'mt06',
+		note: 'margin top .625rem'
+	}, {
 		name: 'mt05',
 		note: 'margin top .5rem'
 	}, {
@@ -265,6 +268,9 @@ const utilityClasses = [
 	}, {
 		name: 'as-c',
 		note: 'align self center in flex'
+	}, {
+		name: 'as-e',
+		note: 'align self end in flex'
 	}, {
 		name: 'grow',
 		note: 'grow and shrink in flex (1 1 auto)'

@@ -16,6 +16,7 @@ import IcoButton from '@/Components/Elements/IcoButton.vue'
 defineProps({
 	header: String,
 	headerMeta: String,
+	subtitle: String,
 	backLink: String,
 	width: {
 		type: String,
@@ -83,6 +84,7 @@ const isiOS = /iPhone|iPad|iPod/.test(window.navigator?.userAgentData?.platform 
 			<h1 class="page-title">{{ header ?? $page.component }}</h1>
 			<button class="menu-toggler flex aj-c clickable l-hide" @click="menuOpen = !menuOpen"><Icon name="menu" /></button>
 		</header>
+		<div v-if="$slots.subtitle || subtitle" class="page-subtitle line"><slot name="subtitle"><p class="text-light">{{ subtitle }}</p></slot></div>
 		<main class="page-main section">
 			<div class="page-content">
 				<slot />

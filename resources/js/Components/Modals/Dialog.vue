@@ -39,7 +39,7 @@ const props = defineProps({
 	},
 	confirmText: {
 		type: String,
-		default: 'Ok'
+		default: txt('Ok')
 	}
 })
 
@@ -100,7 +100,7 @@ const iconMap = {
 						<img class="modal-image-preview-img" :src="image" alt="" />
 						<div v-if="title" class="modal-image-preview-info flex ai-c">
 							<span class="modal-image-preview-title">{{ title }}</span>
-							<IcoButton icon="external-link" title="Open in new tab" target="_blank" :link="image" />
+							<IcoButton circle icon="external-link" title="Open in new tab" target="_blank" :link="image" />
 						</div>
 					</template>
 					<div v-else class="card-body">

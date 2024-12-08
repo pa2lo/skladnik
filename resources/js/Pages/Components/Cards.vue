@@ -96,7 +96,7 @@ const tabsExampleCode = `<Tabs>
 </Tabs>`
 const tabsExpose = [
 	{
-		name: 'getActiveTabIndex',
+		name: 'getActiveTabId',
 		note: 'returns id or index of active tab'
 	}, {
 		name: 'setTab',
@@ -107,6 +107,10 @@ const tabsExpose = [
 const tabsProps = [
 	{
 		name: 'grow',
+		type: 'Boolean',
+		default: false
+	}, {
+		name: 'center',
 		type: 'Boolean',
 		default: false
 	}, {

@@ -6,6 +6,7 @@ import Card from '@/Components/Elements/Card.vue'
 import Modal from '@/Components/Modals/Modal.vue'
 import Button from '@/Components/Elements/Button.vue'
 import IcoButton from '@/Components/Elements/IcoButton.vue'
+import IcoButtonCopy from '@/Components/Elements/IcoButtonCopy.vue'
 import TableProps from './Partials/TableProps.vue'
 import Accordion from '@/Components/Elements/Accordion.vue'
 
@@ -13,6 +14,7 @@ import ButtonsGroup from '@/Components/Elements/ButtonsGroup.vue'
 
 const showButtonInfo = ref(false)
 const showIcoButtonInfo = ref(false)
+const showIcoButtonCopyInfo = ref(false)
 const buttonCodeExample = `<Button>Primary</Button>
 <Button color="secondary" variant="outline">Secondary</Button>
 <Button icon="logout" color="link" full>Logout</Button>
@@ -25,6 +27,7 @@ const buttonCodeExample = `<Button>Primary</Button>
 const icoButtonCodeExample = `<IcoButton icon="x" v-tooltip="'default'" />
 <IcoButton icon="x" transparent v-tooltip="'transparent'" />
 <IcoButton icon="x" color="warning" variant="solid" v-tooltip="'warning solid'" />`
+const icoButtonCopyCodeExample = `<IcoButtonCopy copyableText="Text to copy" />`
 const icoButtonProps = [
 	{
 		name: 'icon',
@@ -78,6 +81,11 @@ const icoButtonProps = [
 		default: false
 	}
 ]
+const icoButtonCopyProps = [...icoButtonProps.filter(i => ['color', 'variant', 'disabled', 'highlighted', 'invisible', 'transparent'].includes(i.name)), {
+	name: 'copyableText',
+	type: 'String',
+	note: 'text to copy on click'
+}]
 const buttonProps = [
 	{
 		name: 'label',
@@ -239,14 +247,32 @@ const buttonsGroupProps = [
 				<IcoButton transparent icon="x" v-tooltip="'transparent'" />
 				<IcoButton color="warning" variant="solid" icon="x" v-tooltip="'warning solid'" />
 				<IcoButton variant="outline" icon="x" v-tooltip="'outline'" />
+				<IcoButton circle icon="x" v-tooltip="'circle'" />
 			</p>
-			<Modal v-model:open="showIcoButtonInfo" header="Button component">
+			<Modal v-model:open="showIcoButtonInfo" header="IcoButton component">
 				<div>
 					<Accordion title="Code example" pre>
 						{{ icoButtonCodeExample }}
 					</Accordion>
 				</div>
 				<TableProps header="Props" :properties="icoButtonProps" />
+			</Modal>
+		</Card>
+		<Card header="IcoButtonCopy">
+			<template #actions>
+				<IcoButton icon="code" v-tooltip="'Code & info'" transparent @click="showIcoButtonCopyInfo = true" />
+			</template>
+			<p class="buttons-row">
+				<IcoButtonCopy copyableText="Text to copy" />
+				<IcoButtonCopy variant="solid" color="primary" copyableText="Text to copy" />
+			</p>
+			<Modal v-model:open="showIcoButtonCopyInfo" header="IcoButtonCopy component">
+				<div>
+					<Accordion title="Code example" pre>
+						{{ icoButtonCopyCodeExample }}
+					</Accordion>
+				</div>
+				<TableProps header="Props" :properties="icoButtonCopyProps" />
 			</Modal>
 		</Card>
 	</AuthenticatedLayout>

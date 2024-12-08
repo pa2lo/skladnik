@@ -23,12 +23,14 @@ async function copy(val) {
 	<div class="dataTable-wrapper line">
 		<table class="infoTable">
 			<thead>
-				<th>Name</th>
-				<th v-if="hasType">Type</th>
-				<th v-if="hasScope">Scope</th>
-				<th v-if="hasParameters">Parameters</th>
-				<th v-if="!hideDefaults">Default</th>
-				<th>Note</th>
+				<tr>
+					<th>Name</th>
+					<th v-if="hasType">Type</th>
+					<th v-if="hasScope">Scope</th>
+					<th v-if="hasParameters">Parameters</th>
+					<th v-if="!hideDefaults">Default</th>
+					<th>Note</th>
+				</tr>
 			</thead>
 			<tbody>
 				<tr v-for="row in properties">

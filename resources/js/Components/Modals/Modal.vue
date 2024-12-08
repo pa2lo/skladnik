@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { txt } from '@/Utils/helpers'
 
 import IcoButton from '@/Components/Elements/IcoButton.vue'
 import Button from '../Elements/Button.vue'
@@ -20,7 +21,7 @@ const props = defineProps({
 	showCloseButton: Boolean,
 	closeButtonText: {
 		type: String,
-		default: 'Close'
+		default: txt('Close')
 	},
 	width: {
 		type: String,
@@ -55,10 +56,9 @@ async function close() {
 }
 
 function handleEscape(e) {
-	if (!['INPUT', 'SELECT'].includes(e.target.tagName)) {
-		e.stopPropagation()
-		close()
-	}
+	if (['INPUT', 'SELECT'].includes(e.target.tagName) || e.target.matches('.input-el-focusable')) return
+	e.stopPropagation()
+	close()
 }
 </script>
 

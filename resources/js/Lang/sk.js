@@ -61,6 +61,7 @@ export const sk = {
 
 	// dashboard
 	'Select...': 'Vybrať...',
+	'Search...': 'Hľadať...',
 	'Select file': 'Vybrať súbor',
 	"pc": "ks",
 	"Warehouse": "Sklad",

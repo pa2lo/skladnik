@@ -10,6 +10,7 @@ import TableProps from './Partials/TableProps.vue'
 import Accordion from '@/Components/Elements/Accordion.vue'
 
 import TextInput from '@/Components/Inputs/TextInput.vue'
+import BasicColorInput from '@/Components/Inputs/BasicColorInput.vue'
 import BasicSelectInput from '@/Components/Inputs/BasicSelectInput.vue'
 import SelectInput from '@/Components/Inputs/SelectInput.vue'
 import CheckboxGroup from '@/Components/Inputs/CheckboxGroup.vue'
@@ -27,6 +28,7 @@ import RangeInput from '@/Components/Inputs/RangeInput.vue'
 
 const textInputTest = ref('')
 const textInputTest2 = ref('')
+const testColorInput = ref('#334578')
 const selectInputTest = ref('')
 const selectInputMultipleTest = ref([])
 const numberInputTest = ref(10)
@@ -121,6 +123,10 @@ const inputSharedProps = [
 	{
 		name: 'label',
 		type: 'String'
+	}, {
+		name: 'labelNote',
+		type: 'String',
+		note: 'lighter text in label'
 	}, {
 		name: 'name',
 		type: 'String'
@@ -270,7 +276,7 @@ const textInputCodeExample = `<TextInput label="Input 1" placeholder="Placeholde
 <TextInput label="Input 2" placeholder="Placeholder" v-model="textInputModel" error="Error message" clearable />
 <TextInput label="Input 3" icon="mail" modelValue="input is disabled" disabled />
 <TextInput label="Input 4" modelValue="Read only" readOnly copyable />`
-const textInputProps = [...inputSharedProps.filter(i => ['label', 'name', 'required', 'disabled', 'readOnly', 'error', 'placeholder', 'autofocus', 'autocomplete', 'clearable', 'copyable', 'icon', 'type', 'chars', 'horizontal', 'full', 'tooltip'].includes(i.name)), {
+const textInputProps = [...inputSharedProps.filter(i => ['label', 'labelNote', 'name', 'required', 'disabled', 'readOnly', 'error', 'placeholder', 'autofocus', 'autocomplete', 'clearable', 'copyable', 'icon', 'type', 'chars', 'horizontal', 'full', 'tooltip'].includes(i.name)), {
 	name: 'min',
 	type: '[String, Number]',
 	note: 'min date f.e. on input type date'
@@ -278,21 +284,36 @@ const textInputProps = [...inputSharedProps.filter(i => ['label', 'name', 'requi
 	name: 'max',
 	type: '[String, Number]',
 	note: 'max date f.e. on input type date'
+}, {
+	name: 'trim',
+	type: 'Boolean',
+	default: false,
+	note: 'Trim value on blur'
 }]
+
+const showBasicColorInputInfo = ref(false)
+const basicColorInputCodeExample = `<BasicColorInput label="Color input 1" v-model="colorInputModel" placeholder="#1a2b3c">Input note</BasicColorInput>
+<BasicColorInput label="Color input 2" v-model="colorInputModel" placeholder="#1a2b3c" error="Error message" />
+<BasicColorInput label="Color input 3" v-model="colorInputModel" readOnly copyable />`
+const basicColorInputProps = [...inputSharedProps.filter(i => ['label', 'labelNote', 'name', 'required', 'disabled', 'readOnly', 'error', 'placeholder', 'autofocus', 'copyable', 'horizontal', 'full', 'tooltip'].includes(i.name))]
 
 const showTextareaInfo = ref(false)
 const textareaCodeExample = `<TextareaInput label="Text area 1" v-model="textareaModel">Input note</TextareaInput>
 <TextareaInput label="Text area 2" v-model="textareaModel" error="Input error" clearable />
 <TextareaInput label="Text area 3" v-model="textareaModel" rows="3" copyable readOnly />
 <TextareaInput label="Text area 4" v-model="textareaModel" rows="3" disabled />`
-const textareaProps = [...inputSharedProps.filter(i => ['label', 'name', 'required', 'disabled', 'readOnly', 'error', 'placeholder', 'autofocus', 'clearable', 'copyable', 'rows', 'horizontal', 'full', 'tooltip'].includes(i.name))]
+const textareaProps = [...inputSharedProps.filter(i => ['label', 'labelNote', 'name', 'required', 'disabled', 'readOnly', 'error', 'placeholder', 'autofocus', 'clearable', 'copyable', 'rows', 'horizontal', 'full', 'tooltip'].includes(i.name))]
 
 const showNumberInputInfo = ref(false)
 const numberInputCodeExample = `<NumberInput label="Number 1" v-model="numberModel">Input note</NumberInput>
 <NumberInput label="Number 2" :min="5" :max="15" :step="0.1" :inc="0.5" v-model="numberModel" suffix="km" error="Input error" />
 <NumberInput label="Number 3" v-model="numberModel" readOnly />
 <NumberInput label="Number 4" v-model="numberModel" disabled />`
-const numberInputProps = [...inputSharedProps.filter(i => ['label', 'name', 'required', 'disabled', 'readOnly', 'error', 'placeholder', 'autofocus', 'autocomplete', 'min', 'max', 'step', 'inc', 'chars', 'suffix', 'horizontal', 'full', 'tooltip'].includes(i.name))]
+const numberInputProps = [...inputSharedProps.filter(i => ['label', 'labelNote', 'name', 'required', 'disabled', 'readOnly', 'error', 'placeholder', 'autofocus', 'autocomplete', 'min', 'max', 'step', 'inc', 'chars', 'suffix', 'horizontal', 'full', 'tooltip'].includes(i.name)), {
+	name: 'hideButtons',
+	type: 'Boolean',
+	default: false
+}]
 
 const showBasicSelectInfo = ref(false)
 const basicSelectCodeExample = `const selectOptions1 = ['option1', 'option2', 'option3']
@@ -312,7 +333,7 @@ const selectOptions2 = [{
 <BasicSelectInput label="Select 2" :options="selectOptions2" v-model="selectModel" error="Input error" />
 <BasicSelectInput label="Select 3" icon="mail" :options="selectOptions1" modelValue="option2" readOnly />
 <BasicSelectInput label="Select 4" disabled :options="selectOptions2" modelValue="option2" />`
-const basicSelectProps = [...inputSharedProps.filter(i => ['label', 'name', 'required', 'disabled', 'readOnly', 'error', 'autofocus', 'autocomplete', 'icon', 'options', 'allowEmpty', 'horizontal', 'full', 'tooltip'].includes(i.name)), {
+const basicSelectProps = [...inputSharedProps.filter(i => ['label', 'labelNote', 'name', 'required', 'disabled', 'readOnly', 'error', 'autofocus', 'autocomplete', 'icon', 'options', 'allowEmpty', 'horizontal', 'full', 'tooltip'].includes(i.name)), {
 	name: 'placeholder',
 	type: 'String',
 	default: 'Select...',
@@ -332,6 +353,12 @@ const selectCodeExample = `const selectOptions = [{
  disabled: true
 }]
 
+const selectAjaxOptions = ref([])
+const selectAjaxLoading = ref(false)
+function loadAjaxOptions(val) {
+	// API query for val
+}
+
 <SelectInput label="Select 1" :options="selectOptions" v-model="selectModel" allowEmpty>Input note</SelectInput>
 <SelectInput label="Select 2 multiple" :options="selectOptions" v-model="selectModelArray" />
 <SelectInput label="Select 3 option slot" :options="selectOptions" v-model="selectModel">
@@ -339,28 +366,56 @@ const selectCodeExample = `const selectOptions = [{
   <strong>Title: {{ option.title }}</strong>
   <br><span class="smaller text-light">Value - {{ option.value }}</span>
  </template>
-</SelectInput>`
-const selectProps = [...inputSharedProps.filter(i => ['label', 'name', 'required', 'disabled', 'readOnly', 'error', 'options', 'allowEmpty', 'horizontal', 'full', 'tooltip'].includes(i.name)), {
+</SelectInput>
+<SelectInput label="Select ajax search" :options="selectAjaxOptions" :loading="selectAjaxLoading" @search="loadAjaxOptions" />`
+const selectProps = [...inputSharedProps.filter(i => ['label', 'labelNote', 'name', 'required', 'disabled', 'readOnly', 'error', 'options', 'allowEmpty', 'horizontal', 'full', 'tooltip'].includes(i.name)), {
 	name: 'placeholder',
 	type: 'String',
 	default: 'Select...',
 	note: 'empty option text'
+},  {
+	name: 'showCount',
+	type: 'Boolean',
+	default: false,
+	note: 'show number of selected items instead of items itself'
 }, {
 	name: 'searchable',
 	type: 'Boolean',
 	default: false,
 	note: 'show search input in options'
 }, {
-	name: 'showCount',
+	name: 'searchableFields',
+	type: 'Array',
+	default: '[]',
+	note: 'option object keys to search ih'
+}, {
+	name: 'searchPlaceholder',
+	type: 'String',
+	default: 'Search...'
+}, {
+	name: 'loading',
 	type: 'Boolean',
 	default: false,
-	note: 'show number of selected items instead of items itself'
+	note: 'options loading indicator'
+}, {
+	name: 'noItemsText',
+	type: 'String',
+	default: 'no items'
+}, {
+	name: 'searchThrottle',
+	type: 'Number',
+	default: 250
 }]
 const selectSlots = [...inputSharedSlots, {
 	name: 'option',
 	scope: 'option',
 	default: 'option.title',
 	note: 'select option scoped slot'
+}]
+const selectEvents = [{
+	name: 'search',
+	parameters: 'value',
+	note: 'search input events for ajax options lookup'
 }]
 
 const showRadioButtonsInfo = ref(false)
@@ -386,11 +441,16 @@ const radioButtonsCodeExample = `const options = [{
 <RadioButtons label="Radio buttons 2" :options="options" v-model="radioButtonsModel" error="Buttons row error" />
 <RadioButtons label="Radio buttons 3" :options="options" v-model="radioButtonsModel" readOnly />
 <RadioButtons label="Radio buttons 4" :options="options" v-model="radioButtonsModel" disabled />`
-const radioButtonsProps = [...inputSharedProps.filter(i => ['label', 'name', 'required', 'disabled', 'readOnly', 'error', 'options', 'horizontal', 'full', 'tooltip'].includes(i.name)), {
+const radioButtonsProps = [...inputSharedProps.filter(i => ['label', 'labelNote', 'name', 'required', 'disabled', 'readOnly', 'error', 'options', 'horizontal', 'full', 'tooltip'].includes(i.name)), {
 	name: 'solid',
 	type: 'Boolean',
 	default: false,
 	note: 'selected option with solid color'
+}, {
+	name: 'sameWidth',
+	type: 'Boolean',
+	default: false,
+	note: 'options will have same width'
 }]
 
 const showSimpleCheckboxInfo = ref(false)
@@ -399,7 +459,7 @@ const simpleCheckboxCodeExample = `<SimpleCheckbox label="Checkbox 1" v-model="c
 <SimpleCheckbox v-model="checkboxModel" disabled>Checkbox 2 slot</SimpleCheckbox>`
 const simpleToggleCodeExample = `<SimpleToggle label="Toggle 1" v-model="toggleModel" />
 <SimpleToggle v-model="toggleModel" disabled>Toggle 2 slot</SimpleToggle>`
-const simpleCheckboxProps = [...inputSharedProps.filter(i => ['label', 'name', 'required', 'disabled', 'value', 'horizontal', 'full', 'tooltip'].includes(i.name))]
+const simpleCheckboxProps = [...inputSharedProps.filter(i => ['label', 'labelNote', 'name', 'required', 'disabled', 'value', 'horizontal', 'full', 'tooltip'].includes(i.name))]
 const simpleCheckboxSlots = [{
 	name: 'default',
 	default: 'label prop',
@@ -427,7 +487,7 @@ const groupInputCodeExample = `const options = [{
 <CheckboxGroup label="CheckboxGroup" :options="options" v-model="checkboxModel">Input note</CheckboxGroup>
 <RadioGroup label="RadioGroup" :options="options" v-model="radioModel" />
 <ToggleGroup label="ToggleGroup full" :options="options" v-model="togglesModel" full />`
-const groupInputProps = [...inputSharedProps.filter(i => ['label', 'name', 'required', 'disabled', 'error', 'options', 'vertical', 'horizontal', 'full', 'tooltip'].includes(i.name))]
+const groupInputProps = [...inputSharedProps.filter(i => ['label', 'labelNote', 'name', 'required', 'disabled', 'error', 'options', 'vertical', 'horizontal', 'full', 'tooltip'].includes(i.name))]
 
 const showInputsRowInfo = ref(false)
 const inputsRowCodeExample = `<InputsRow label="Different inputs in one row without labels">
@@ -441,7 +501,7 @@ const inputsRowCodeExample = `<InputsRow label="Different inputs in one row with
  <BasicSelectInput class="grow" label="Select" :options="selectOptions" v-model="selectModel" error=" " />
  <TextInput class="grow" label="Text" placeholder="Placeholder" v-model="textModel" :chars="10" />
 </InputsRow>`
-const inputsRowProps = [...inputSharedProps.filter(i => ['label', 'error', 'wrap', 'horizontal', 'full', 'tooltip'].includes(i.name))]
+const inputsRowProps = [...inputSharedProps.filter(i => ['label', 'labelNote', 'error', 'wrap', 'horizontal', 'full', 'tooltip'].includes(i.name))]
 const inputsRowSlots = [
 	{
 		name: 'default',
@@ -461,7 +521,7 @@ const showFileInputInfo = ref(false)
 const fileInputCodeExample = `<FileInput label="File input" @setFile="(file) => form.file = file" />
 <FileInput label="File input image 200kb" accept="image/*" :maxSize="200000" @setFile="setFileCallback" />
 <FileInput fileName="example.jpg" fileUrl="/img/example.jpg" label="File input 2" accept="image/*" @setFile="setFileCallback" />`
-const fileInputProps = [...inputSharedProps.filter(i => ['label', 'name', 'required', 'disabled', 'error', 'horizontal', 'full', 'tooltip'].includes(i.name)), {
+const fileInputProps = [...inputSharedProps.filter(i => ['label', 'labelNote', 'name', 'required', 'disabled', 'error', 'horizontal', 'full', 'tooltip'].includes(i.name)), {
 	name: 'fileName',
 	type: 'String'
 }, {
@@ -496,7 +556,7 @@ const fileInputEvents = [
 const showRangeInfo = ref(false)
 const rangeCodeExample = `<RangeInput label="Range 1" v-model="rangeModel">Input note</RangeInput>
 <RangeInput label="Range 2" suffix="kw" :min="1" :max="9" :step="0.1" v-model="rangeModel2" />`
-const rangeProps = [...inputSharedProps.filter(i => ['label', 'name', 'required', 'disabled', 'error', 'step', 'suffix', 'horizontal', 'full', 'tooltip'].includes(i.name)), {
+const rangeProps = [...inputSharedProps.filter(i => ['label', 'labelNote', 'name', 'required', 'disabled', 'error', 'step', 'suffix', 'horizontal', 'full', 'tooltip'].includes(i.name)), {
 	name: 'min',
 	type: 'Number',
 	default: 0
@@ -509,7 +569,7 @@ const rangeProps = [...inputSharedProps.filter(i => ['label', 'name', 'required'
 const showTextEditorInfo = ref(false)
 const textEditorCodeExample = `<TextEditorInput label="Text editor simple" simple v-model="textModel">Input note</TextEditorInput>
 <TextEditorInput label="Text editor" placeholder="Add your content here..." v-model="textModel2" />`
-const textEditorProps =  [...inputSharedProps.filter(i => ['label', 'name', 'required', 'disabled', 'error', 'placeholder', 'tooltip'].includes(i.name)), {
+const textEditorProps =  [...inputSharedProps.filter(i => ['label', 'labelNote', 'name', 'required', 'disabled', 'error', 'placeholder', 'tooltip'].includes(i.name)), {
 	name: 'height',
 	type: 'String',
 	default: '400px',
@@ -519,6 +579,16 @@ const textEditorProps =  [...inputSharedProps.filter(i => ['label', 'name', 'req
 	type: 'Boolean',
 	default: false
 }]
+
+// ajax options loading
+const selectAjaxOptions = ref([])
+const selectAjaxLoading = ref(false)
+function loadAjaxOptions(v) {
+	selectAjaxLoading.value = true
+	setTimeout(() => {
+		selectAjaxLoading.value = false
+	}, 1000);
+}
 </script>
 
 <template>
@@ -547,6 +617,27 @@ const textEditorProps =  [...inputSharedProps.filter(i => ['label', 'name', 'req
 					</Accordion>
 				</div>
 				<TableProps header="Props" :properties="textInputProps" />
+				<TableProps header="Slots" :properties="inputSharedSlots" />
+				<TableProps header="Exposed functions" :properties="inputSharedExpose" hideDefaults />
+			</Modal>
+		</Card>
+		<Card header="BasicColorInput">
+			<template #actions>
+				<IcoButton icon="code" v-tooltip="'Code & info'" transparent @click="showBasicColorInputInfo = true" />
+			</template>
+			<div class="inputs-grid">
+				<BasicColorInput label="Color input" v-model="testColorInput" placeholder="#1a2b3c">Input note</BasicColorInput>
+				<BasicColorInput label="Color input with error" v-model="testColorInput" placeholder="#1a2b3c" error="Input error" />
+				<BasicColorInput label="Color input readOnly copyable" v-model="testColorInput" readOnly copyable />
+				<BasicColorInput label="Color input disabled" v-model="testColorInput" disabled />
+			</div>
+			<Modal v-model:open="showBasicColorInputInfo" header="BasicColorInput component">
+				<div>
+					<Accordion title="Code example" pre>
+						{{ basicColorInputCodeExample }}
+					</Accordion>
+				</div>
+				<TableProps header="Props" :properties="basicColorInputProps" />
 				<TableProps header="Slots" :properties="inputSharedSlots" />
 				<TableProps header="Exposed functions" :properties="inputSharedExpose" hideDefaults />
 			</Modal>
@@ -613,6 +704,7 @@ const textEditorProps =  [...inputSharedProps.filter(i => ['label', 'name', 'req
 				<SelectInput label="Select multiple disabled" disabled :options="selectOptions" :modelValue="['option2', 'option4']" />
 				<SelectInput label="Select multiple readOnly" readOnly :options="selectOptions" :modelValue="['option2', 'option4']" />
 				<SelectInput label="Select multiple showCount" :options="selectOptions" v-model="selectInputMultipleTest" showCount />
+				<SelectInput label="Select ajax search" :options="selectAjaxOptions" :loading="selectAjaxLoading" @search="loadAjaxOptions" />
 			</div>
 			<Modal v-model:open="showSelectInfo" header="SelectInput component">
 				<div>
@@ -623,6 +715,7 @@ const textEditorProps =  [...inputSharedProps.filter(i => ['label', 'name', 'req
 				<TableProps header="Props" :properties="selectProps" />
 				<TableProps header="Option item data" :properties="selectOptionProps" />
 				<TableProps header="Slots" :properties="selectSlots" />
+				<TableProps header="Events" :properties="selectEvents" hideDefaults />
 			</Modal>
 		</Card>
 		<Card header="RadioButtonsInput">
@@ -657,6 +750,7 @@ const textEditorProps =  [...inputSharedProps.filter(i => ['label', 'name', 'req
 				<NumberInput label="Number input min/max/step/inc/suffix/error" :min="5" :max="15" :step="0.1" :inc="0.5" error="Input error" v-model="numberInputTest" suffix="km" />
 				<NumberInput label="Number input readonly" v-model="numberInputTest" readOnly />
 				<NumberInput label="Number input disabled" v-model="numberInputTest" disabled />
+				<NumberInput label="Number input hideButtons" hideButtons v-model="numberInputTest" />
 			</div>
 			<Modal v-model:open="showNumberInputInfo" header="NumberInput component">
 				<div>
@@ -834,6 +928,7 @@ const textEditorProps =  [...inputSharedProps.filter(i => ['label', 'name', 'req
 		</Card>
 		<Card header="Horizontal inputs">
 			<TextInput horizontal label="TextInput horizontal" v-model="textInputTest" placeholder="Placeholder" tooltip="Tooltip" />
+			<BasicColorInput horizontal label="BasicColorInput horizontal" v-model="testColorInput" placeholder="#1a2b3c" tooltip="Tooltip" />
 			<BasicSelectInput horizontal label="BasicSelectInput horizontal" :options="selectOptions" v-model="selectInputTest" tooltip="Tooltip" />
 			<SelectInput horizontal label="SelectInput horizontal" :options="selectOptions" v-model="selectInputMultipleTest" tooltip="Tooltip" />
 			<FileInput horizontal label="FileInput horizontal" fileName="example.jpg" fileUrl="/img/example.jpg" accept="image/*" tooltip="Tooltip" />
