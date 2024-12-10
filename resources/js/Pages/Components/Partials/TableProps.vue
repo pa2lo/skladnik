@@ -34,7 +34,7 @@ async function copy(val) {
 			</thead>
 			<tbody>
 				<tr v-for="row in properties">
-					<td class="infoTable-copy" @click="copy(row?.name)"><strong>{{ row?.name }}</strong></td>
+					<td class="infoTable-highlight infoTable-copy" @click="copy(row?.name)"><strong>{{ row?.name }}</strong></td>
 					<td class="infoTable-type" v-if="hasType">{{ row?.type }}</td>
 					<td v-if="hasScope">{{ row?.scope }}</td>
 					<td class="infoTable-type" v-if="hasParameters">{{ row?.parameters }}</td>

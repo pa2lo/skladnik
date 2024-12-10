@@ -46,11 +46,11 @@ const isiOS = /iPhone|iPad|iPod/.test(window.navigator?.userAgentData?.platform 
 <template>
 	<Head :title="headerMeta ?? header" />
 	<aside class="sidemenu-cont" :class="{menuOpen: menuOpen}">
-		<div class="sidemenu-backdrop l-hide clickable" @click="menuOpen = !menuOpen"></div>
+		<div class="sidemenu-backdrop l-hide isClickable" @click="menuOpen = !menuOpen"></div>
 		<nav class="sidemenu-menu flex">
 			<div class="sidemenu-logo flex ai-c">
 				<ApplicationLogo />
-				<Icon class="sidemenu-hide-x clickable ml-a l-hide" name="x" @click="menuOpen = !menuOpen" />
+				<Icon class="sidemenu-hide-x isClickable ml-a l-hide" name="x" @click="menuOpen = !menuOpen" />
 			</div>
 			<div class="divided">
 				<MenuLink link="/" activeRoute="/warehouse" icon="boxes">{{ txt('Warehouse') }}</MenuLink>
@@ -82,7 +82,7 @@ const isiOS = /iPhone|iPad|iPod/.test(window.navigator?.userAgentData?.platform 
 		<header class="authenticated-header flex ai-c">
 			<IcoButton v-if="backLink" icon="left" class="authenticated-header-back" :link="backLink" transparent />
 			<h1 class="page-title">{{ header ?? $page.component }}</h1>
-			<button class="menu-toggler flex aj-c clickable l-hide" @click="menuOpen = !menuOpen"><Icon name="menu" /></button>
+			<button class="menu-toggler flex aj-c isClickable l-hide" @click="menuOpen = !menuOpen"><Icon name="menu" /></button>
 		</header>
 		<div v-if="$slots.subtitle || subtitle" class="page-subtitle line"><slot name="subtitle"><p class="text-light">{{ subtitle }}</p></slot></div>
 		<main class="page-main section">

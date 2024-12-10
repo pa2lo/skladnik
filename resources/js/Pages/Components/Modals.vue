@@ -16,6 +16,7 @@ import Message from '@/Components/Elements/Message.vue'
 
 const modalTest1 = ref(false)
 const modalTest2 = ref(false)
+const modalTest3 = ref(false)
 
 const dialogConfirm = () => {
 	dialog.confirm('Confirm dialog', 'Message of confirm dialog window', {
@@ -95,6 +96,11 @@ const modalProps = [
 		name: 'closeButtonText',
 		type: 'String',
 		default: 'Close'
+	}, {
+		name: 'beforeClose',
+		type: 'Function',
+		default: null,
+		note: 'return true / false to close modal'
 	}
 ]
 const modalSlots = [
@@ -117,6 +123,15 @@ const modalEvents = [
 		name: 'modalClosed'
 	}
 ]
+
+function beforeModalClose() {
+	return new Promise(resolve => {
+		dialog.confirm(null, 'Are you sure you want to close modal?', {
+			onConfirm: () => resolve(true),
+			onCancel: () => resolve(false)
+		})
+	})
+}
 
 const showDialogInfo = ref(false)
 const dialogCodeExample = `import { dialog } from '@/Utils/dialog'
@@ -258,6 +273,7 @@ const messageEvents = [
 			<p class="buttons-row">
 				<Button @click.prevent="modalTest1 = true">Modal normal</Button>
 				<Button @click.prevent="modalTest2 = true">Modal narrow</Button>
+				<Button @click.prevent="modalTest3 = true">Modal w beforeClose</Button>
 			</p>
 			<Modal v-model:open="modalTest1" header="Modal header" headerNote="Modal header note">
 				<p>Modal body</p>
@@ -277,6 +293,12 @@ const messageEvents = [
 				<template #buttons>
 					<Button variant="outline">Button 1</Button>
 					<Button>Button 2</Button>
+				</template>
+			</Modal>
+			<Modal v-model:open="modalTest3" header="Modal w beforeClose" showCloseButton :beforeClose="beforeModalClose">
+				<p>Modal body</p>
+				<template #buttons>
+					<Button variant="outline" color="link" @click.prevent="modalTest3 = false">Close without confirm</Button>
 				</template>
 			</Modal>
 			<Modal v-model:open="showModalInfo" header="Modal component">

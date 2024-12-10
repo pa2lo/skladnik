@@ -26,6 +26,10 @@ const props = defineProps({
 	width: {
 		type: String,
 		default: 'normal'
+	},
+	beforeClose: {
+		type: Function,
+		default: null
 	}
 })
 
@@ -44,15 +48,20 @@ function afterEnter() {
 	else modal.value.focus({ preventScroll: true })
 }
 
-function beforeLeave() {
+function afterLeave() {
 	if (focusedEl && document.documentElement.contains(focusedEl)) focusedEl.focus({ preventScroll: true })
+	emit('modalClosed')
 }
 
 async function close() {
 	if (!props.closeable) return
+
+	if (props.beforeClose) {
+		const shouldClose = await props.beforeClose()
+		if (!shouldClose) return
+	}
+
 	emit('update:open', false)
-	// await nextTick()
-	// emit('cancelled')
 }
 
 function handleEscape(e) {
@@ -64,9 +73,9 @@ function handleEscape(e) {
 
 <template>
 	<teleport to="body">
-        <Transition name="modal" @before-enter="beforeEnter" @enter="$emit('modalOpen')" @after-enter="afterEnter" @before-leave="beforeLeave" @after-leave="$emit('modalClosed')">
+        <Transition name="modal" @before-enter="beforeEnter" @enter="$emit('modalOpen')" @after-enter="afterEnter" @after-leave="afterLeave">
 			<div v-if="open" class="modal-backdrop flex overflowCont" @click.self="close">
-				<component :is="as || 'div'" ref="modal" class="card modal-card" :class="[`card-${width}`]" @keyup.esc.stop="handleEscape" tabindex="-1" v-bind="$attrs">
+				<component :is="as || 'div'" ref="modal" class="card modal-card" :class="[`card-${width}`]" @keydown.esc.stop="handleEscape" tabindex="-1" v-bind="$attrs">
 					<div v-if="header || $slots.header" class="card-header">
 						<slot name="header">
 							<h3 class="modal-header">{{ header }}</h3>

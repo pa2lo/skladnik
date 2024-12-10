@@ -175,11 +175,16 @@ h5, .likeH5 { font-size: 1.125rem; }
 	outline: none;
 }
 
-/* mobile highlights */
-.clickable, .isClickable {
+/* cursors */
+.isClickable {
 	cursor: pointer;
 }
-button, input, div[tabindex], .clickable, .isClickable, .isLabel {
+.isMovable, button.isMovable {
+	cursor: move;
+}
+
+/* mobile highlights */
+button, input, div[tabindex], a, .isClickable, .isLabel {
 	-webkit-tap-highlight-color: transparent;
 }
 

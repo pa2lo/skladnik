@@ -40,7 +40,7 @@ const isBasicLink = typeof props.link == "string" && ['https://', 'http://', '#'
 		:is="link ? (isBasicLink || download) ? 'a' : Link : 'button'"
 		:href="link ? getHref(link, linkParam) : null"
 		:type="link ? null : type"
-		class="ico-button clickable"
+		class="ico-button"
 		:class="[
 			`button-${color}`,
 			`button-${variant}`,

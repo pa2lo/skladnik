@@ -28,7 +28,7 @@ const accordionData = {
 	'Key2': 'Value2',
 }
 
-const iconsArr = ['x', 'menu', 'user-edit', 'dashboard', 'info2', 'moon', 'sun', 'logout', 'eye', 'eye-off', 'copy', 'check', 'circle-check', 'circle-x', 'circle-info', 'circle-alert', 'circle-question', 'right', 'double-right', 'left', 'double-left', 'down', 'up', 'back', 'edit', 'trash', 'circle-check-animated', 'circle-info-animated', 'circle-alert-animated', 'circle-x-animated', 'circle-question-animated', 'plus', 'minus', 'archive', 'external-link', 'mail', 'stack', 'history', 'plusminus', 'users', 'save', 'print', 'download', 'github', 'components', 'boxes', 'code', 'search', 'dots', 'calendar', 'filter', 'clock', 'refresh', 'article', 'settings', 'folder-open']
+const iconsArr = ['x', 'menu', 'user-edit', 'dashboard', 'info2', 'moon', 'sun', 'logout', 'eye', 'eye-off', 'copy', 'check', 'circle-check', 'circle-x', 'circle-info', 'circle-alert', 'circle-question', 'right', 'double-right', 'left', 'double-left', 'down', 'up', 'back', 'edit', 'trash', 'circle-check-animated', 'circle-info-animated', 'circle-alert-animated', 'circle-x-animated', 'circle-question-animated', 'plus', 'minus', 'archive', 'external-link', 'mail', 'stack', 'history', 'plusminus', 'users', 'save', 'print', 'download', 'github', 'components', 'boxes', 'code', 'search', 'dots', 'calendar', 'filter', 'clock', 'refresh', 'article', 'settings', 'folder-open', 'upload', 'move']
 
 async function copy(val) {
 	await navigator.clipboard.writeText(val).then(() => {
@@ -278,8 +278,11 @@ const utilityClasses = [
 		name: 'divided',
 		note: 'divided line'
 	}, {
-		name: 'clickable',
+		name: 'isClickable',
 		note: 'pointer cursor and reset tap highlight'
+	}, {
+		name: 'isMovable',
+		note: 'grab pointer cursor'
 	}, {
 		name: 'buttons-row',
 		note: 'flex wrapper with spaces for buttons...'
@@ -410,12 +413,13 @@ const loaderProps = [
 
 const showDropdownInfo = ref(false)
 const dropdownCodeExample = `<Dropdown label="Dropdown">
- <DropdownLink icon="boxes" label="Dashboard" link="dashboard" />
+ <DropdownLink icon="boxes" label="Dashboard" link="/dashboard" />
  <DropdownLink icon="users" label="Users" link="/users" />
  <DropdownLink label="Dialog" @click="dialog.info('ok')" color="error" />
  <hr>
- <DropdownLink closeable label="Option 1" :checked="dropdownOption == 1" @click="setDropdownOption(1)" />
- <DropdownLink disabled label="Option 2" :checked="dropdownOption == 2" @click="setDropdownOption(2)" />
+ <DropdownLink keepOpen label="Option 1" :checked="dropdownOption == 1" @click="setDropdownOption(1)" />
+ <DropdownLink keepOpen label="Option 2" :checked="dropdownOption == 2" @click="setDropdownOption(2)" />
+ <DropdownLink disabled label="Option 3" :checked="dropdownOption == 3" @click="setDropdownOption(3)" />
  <hr>
  <p>Some text content</p>
 </Dropdown>`
@@ -486,10 +490,10 @@ const dropdownLinkProps = [
 		type: 'Boolean',
 		default: false
 	}, {
-		name: 'closeable',
+		name: 'keepOpen',
 		type: 'Boolean',
 		default: false,
-		note: 'close dropdown on click'
+		note: 'keeps dropdown open on click'
 	}, {
 		name: 'color',
 		type: 'String',
@@ -617,12 +621,12 @@ const dropdownLinkSlots = [
 				<Dropdown label="Dropdown">
 					<DropdownLink icon="users" label="link 1" link="/" />
 					<DropdownLink disabled label="Disabled" link="/dashboard" />
-					<DropdownLink icon="boxes" label="link 2" link="dashboard" color="error" />
+					<DropdownLink icon="boxes" label="link 2" link="/dashboard" color="error" />
 					<DropdownLink label="link 3 - w onclick" @click="dialog.info('ok')" />
 					<hr>
-					<DropdownLink closeable label="Option 1" :checked="dropdownOption == 1" @click="setDropdownOption(1)" />
-					<DropdownLink closeable label="Option 2" :checked="dropdownOption == 2" @click="setDropdownOption(2)" />
-					<DropdownLink closeable label="Option 3" :checked="dropdownOption == 3" @click="setDropdownOption(3)" />
+					<DropdownLink keepOpen label="Option 1" :checked="dropdownOption == 1" @click="setDropdownOption(1)" />
+					<DropdownLink keepOpen label="Option 2" :checked="dropdownOption == 2" @click="setDropdownOption(2)" />
+					<DropdownLink keepOpen label="Option 3" :checked="dropdownOption == 3" @click="setDropdownOption(3)" />
 					<hr>
 					<p>Some text content</p>
 					<hr>
