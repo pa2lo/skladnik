@@ -533,3 +533,9 @@ button, input, div[tabindex], a, .isClickable, .isLabel {
 		opacity: 1;
 	}
 }
+
+@media (pointer: coarse) {
+	.touch-hide {
+		display: none !important;
+	}
+}

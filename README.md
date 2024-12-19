@@ -83,6 +83,7 @@ composer dump-autoload
 - added *BasicColorInput* component
 - added *IcoButtonCopy* component
 - added *DeleteForm* composable
+- added *BrowserStorage* composable
 - added *input* type, *disabledRows* and *loadingRows* props to *dataTable*
 - added *subtitle* prop to *AuthenticatedLayout*
 - added *center* prop to tabs
@@ -91,7 +92,9 @@ composer dump-autoload
 - added *hideButtons* prop to *NumberInput*
 - added *circle* prop to *IcoButton*
 - added *labelNote* prop to InputWrapper (all inputs)
+- added *InfoTable* example page which uses d&d and composables
 - updated *SelectInput* - added *searchPlaceholder, searchableFields, noItemsText, loading, searchThrottle* props and *search* event
+- updated *WarehouseItemController* and related views to support *useDeleteForm* composable
 - other bug fixes and improvements
 
 ## Update 9/24

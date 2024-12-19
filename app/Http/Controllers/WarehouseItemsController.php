@@ -202,6 +202,8 @@ class WarehouseItemsController extends Controller
     public function destroy(WarehouseItem $warehouseItem)
     {
         $warehouseItem->delete();
-		return to_route('dashboard')->with('flash', 'deleted');
+		return response([
+			'success' => true
+		]);
     }
 }

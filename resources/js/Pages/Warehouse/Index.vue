@@ -2,8 +2,9 @@
 import { ref, computed } from 'vue'
 import { useForm, router } from '@inertiajs/vue3'
 import { toast } from '@/Utils/toaster'
-import { dialog } from '@/Utils/dialog'
 import { txt } from '@/Utils/helpers'
+
+import { useDeleteForm } from '@/Composables/DeleteForm'
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import Card from '@/Components/Elements/Card.vue'
@@ -17,7 +18,6 @@ import Modal from '@/Components/Modals/Modal.vue'
 import TextInput from '@/Components/Inputs/TextInput.vue'
 import TextareaInput from '@/Components/Inputs/TextareaInput.vue'
 import IcoButton from '@/Components/Elements/IcoButton.vue'
-// import RadioButtons from '@/Components/Inputs/RadioButtons.vue'
 import AddChangeModal from './Partials/AddChangeModal.vue'
 import Icon from '@/Components/Elements/Icon.vue'
 import InputsRow from '@/Components/Inputs/InputsRow.vue'
@@ -65,21 +65,14 @@ function submit() {
 	})
 }
 
-const removingId = ref(null)
-const deleteForm = useForm({})
+const { deletingIDs, deleteItem: deleteItemAction } = useDeleteForm()
 
 function deleteItem(item) {
 	if (!item.id) return
 
-	dialog.delete(txt('Delete item'), txt('removeItemQuestion', 'Are you sure you want to remove the item <strong>#0#</strong> from the warehouse?', [item.name]), {
-		onConfirm: () => {
-			removingId.value = item.id
-			deleteForm.delete(`/warehouse/${item.id}`, {
-				preserveScroll: true,
-				onSuccess: () => toast.success(txt('Item deleted')),
-				onFinish: () => removingId.value = null
-			})
-		}
+	deleteItemAction(item.id, `/warehouse/${item.id}`, {
+		dialogText: txt('removeItemQuestion', 'Are you sure you want to remove the item <strong>#0#</strong> from the warehouse?', [item.name]),
+		onSuccess: () => router.reload({ preserveScroll: true, only: ['items'] })
 	})
 }
 
@@ -105,7 +98,7 @@ function getTooltipText(item) {
 			<FilterTags>
 				<Tag v-if="filter" @click="filter = ''" clearable>Filter: {{ filter }}</Tag>
 			</FilterTags>
-			<DataTable :items="filteredItems" :itemWord="txt('items2', 'items')">
+			<DataTable :items="filteredItems" :itemWord="txt('items2', 'items')" :loadingRows="deletingIDs" modelField="id">
 				<template #empty>
 					<Button v-if="filter" icon="x" variant="outline" @click="filter = ''">{{ txt('Reset filter') }}</Button>
 					<Button v-else icon="plus" size="bigger" @click.prevent="openNewItemModal">{{ txt('Add item') }}</Button>
@@ -124,7 +117,7 @@ function getTooltipText(item) {
 					<template #default="{ data }">
 						<IcoButton icon="plusminus" v-tooltip="txt('Add change')" @click.stop="changeModalRef.showChangeModal(data)" />
 						<IcoButton link="/warehouse" :linkParam="data.id" icon="right" v-tooltip="'Detail'" />
-						<IcoButton :loading="removingId == data.id" icon="trash" color="danger" v-tooltip="txt('Delete')" @click.stop="deleteItem(data)" />
+						<IcoButton :loading="deletingIDs.includes(data.id)" icon="trash" color="danger" v-tooltip="txt('Delete')" @click.stop="deleteItem(data)" />
 					</template>
 				</Column>
 			</DataTable>

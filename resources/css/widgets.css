@@ -78,19 +78,16 @@
 	border-spacing: 0;
 	line-height: 1.25;
 }
-.infoTable th {
+.infoTable :where(th) {
 	text-align: left;
-}
-.infoTable thead tr {
-	background-color: var(--link-light-bg);
 }
 .infoTable tbody tr {
 	background: var(--card-background);
 }
-.infoTable :is(th, td):not(:first-child) {
+.infoTable :where(th, td):not(:first-child) {
 	border-left: 1px solid var(--border);
 }
-.infoTable :is(th, td) {
+.infoTable :where(th, td) {
 	padding: .25rem .75rem;
 	height: 2.25rem;
 }
@@ -101,6 +98,26 @@
 .infoTable tbody tr:hover {
 	background: var(--link-lighter-bg);
 }
+.infoTable th, .infoTable .infoTable-th {
+	background-color: var(--link-light-bg);
+	font-weight: bold;
+}
+
+.infoTable tbody tr:last-child td:first-child {
+	border-bottom-left-radius: calc(0.375em - 1px);
+}
+.infoTable tbody tr:last-child td:last-child {
+	border-bottom-right-radius: calc(0.375em - 1px);
+}
+.infoTable th:first-child, .infoTable tbody:first-child tr:first-child td:first-child {
+	border-top-left-radius: calc(0.375em - 1px);
+}
+.infoTable th:last-child, .infoTable tbody:first-child tr:first-child td:last-child {
+	border-top-right-radius: calc(0.375em - 1px);
+}
+.infoTable tbody:first-child tr:first-child td {
+	border-top: none;
+}
 
 .infoTable-copy {
 	cursor: pointer;
@@ -109,18 +126,29 @@
 .infoTable-type, .infoTable-default {
 	min-width: 6rem;
 }
-.infoTable .infoTable-buttons {
-	padding: 0 .5rem;
+.infoTable-buttons {
 	width: 0;
 	white-space: nowrap;
-	position: sticky;
-	right: 0;
-	background: inherit;
-	z-index: 1;
 	text-align: right;
+	padding: 0 .5rem;
+	background-color: inherit;
+}
+.infoTable-buttons-left {
+	text-align: left;
 }
 .infoTable tr:hover .infoTable-highlight-onRow, .infoTable-highlight:hover {
 	color: var(--link-color);
+}
+
+.infoTable-sticky-left, .infoTable-sticky-right {
+	position: sticky;
+	z-index: 1;
+}
+.infoTable-sticky-right {
+	right: 0;
+}
+.infoTable-sticky-left {
+	left: 0;
 }
 
 .row-drop td {

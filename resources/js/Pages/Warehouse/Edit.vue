@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useForm } from '@inertiajs/vue3'
+import { useForm, router } from '@inertiajs/vue3'
 import { formatDate, txt } from '@/Utils/helpers'
 import { toast } from '@/Utils/toaster'
 import { dialog } from '@/Utils/dialog'
@@ -44,14 +44,17 @@ function submitEdit() {
 	})
 }
 
-const deleteForm = useForm({})
+const isDeleting = ref(false)
 function deleteItem() {
 	dialog.delete(txt('Delete item'), txt('removeItemQuestion', 'Are you sure you want to remove the item <strong>#0#</strong> from the warehouse?', [props.item.name]), {
 		onConfirm: () => {
-			deleteForm.delete(`/warehouse/${props.item.id}`, {
-				preserveScroll: true,
-				onSuccess: () => toast.success(txt('Item deleted'))
-			})
+			isDeleting.value = true
+			axios.delete(`/warehouse/${props.item.id}`).then(res => {
+				if (res?.data?.success) {
+					router.visit('/')
+					toast.success(txt('Item deleted'))
+				}
+			}).finally(() => isDeleting.value = false)
 		}
 	})
 }
@@ -124,8 +127,7 @@ const changeModalRef = ref(null)
 			<template #buttons>
 				<Button icon="download" :link="`/warehouse/${item.id}/export`" variant="outline" color="link" download>{{ txt('Download') }}</Button>
 				<Button icon="print" variant="outline" color="link" @click.prevent="printPage">{{ txt('Print') }}</Button>
-				<!-- <Button icon="edit" variant="outline" color="link" @click.prevent="showEditModal">{{ txt('Edit') }}</Button> -->
-				<Button color="danger" icon="trash" variant="outline" @click.prevent="deleteItem" :loading="deleteForm.processing">{{ txt('Delete') }}</Button>
+				<Button color="danger" icon="trash" variant="outline" @click.prevent="deleteItem" :loading="isDeleting">{{ txt('Delete') }}</Button>
 			</template>
 		</Card>
 	</AuthenticatedLayout>

@@ -28,7 +28,7 @@ const accordionData = {
 	'Key2': 'Value2',
 }
 
-const iconsArr = ['x', 'menu', 'user-edit', 'dashboard', 'info2', 'moon', 'sun', 'logout', 'eye', 'eye-off', 'copy', 'check', 'circle-check', 'circle-x', 'circle-info', 'circle-alert', 'circle-question', 'right', 'double-right', 'left', 'double-left', 'down', 'up', 'back', 'edit', 'trash', 'circle-check-animated', 'circle-info-animated', 'circle-alert-animated', 'circle-x-animated', 'circle-question-animated', 'plus', 'minus', 'archive', 'external-link', 'mail', 'stack', 'history', 'plusminus', 'users', 'save', 'print', 'download', 'github', 'components', 'boxes', 'code', 'search', 'dots', 'calendar', 'filter', 'clock', 'refresh', 'article', 'settings', 'folder-open', 'upload', 'move']
+const iconsArr = ['x', 'menu', 'user-edit', 'dashboard', 'info2', 'moon', 'sun', 'logout', 'eye', 'eye-off', 'copy', 'check', 'circle-check', 'circle-x', 'circle-info', 'circle-alert', 'circle-question', 'right', 'double-right', 'left', 'double-left', 'down', 'up', 'back', 'edit', 'trash', 'circle-check-animated', 'circle-info-animated', 'circle-alert-animated', 'circle-x-animated', 'circle-question-animated', 'plus', 'minus', 'archive', 'external-link', 'mail', 'stack', 'history', 'plusminus', 'users', 'save', 'print', 'download', 'github', 'components', 'boxes', 'code', 'search', 'dots', 'calendar', 'filter', 'clock', 'refresh', 'article', 'settings', 'folder-open', 'upload', 'move', 'table-col', 'table-row']
 
 async function copy(val) {
 	await navigator.clipboard.writeText(val).then(() => {
@@ -313,6 +313,9 @@ const utilityClasses = [
 	}, {
 		name: 'rm-hide',
 		note: 'hide below 35rem'
+	}, {
+		name: 'touch-hide',
+		note: 'hide on device with coarse pointer'
 	}
 ]
 

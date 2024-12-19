@@ -65,6 +65,7 @@ const isiOS = /iPhone|iPad|iPod/.test(window.navigator?.userAgentData?.platform 
 					<MenuLink link="/components">{{ txt('Inputs') }}</MenuLink>
 					<MenuLink link="/components/buttons">{{ txt('Buttons') }}</MenuLink>
 					<MenuLink link="/components/tables">{{ txt('Data table') }}</MenuLink>
+					<MenuLink link="/components/infotable">{{ txt('InfoTable') }}</MenuLink>
 					<MenuLink link="/components/modals">{{ txt('Modals, toasts, alerts') }}</MenuLink>
 					<MenuLink link="/components/cards">{{ txt('Cards, tabs, widgets') }}</MenuLink>
 					<MenuLink link="/components/other">{{ txt('Tooltips, other') }}</MenuLink>

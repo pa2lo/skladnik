@@ -15,7 +15,7 @@ const defaultOptions = {
 export function useDeleteForm() {
 	const deletingIDs = ref([])
 
-	function onDeleteError(data, options) {
+	function onDeleteError(id, data, options) {
 		toast.error(options.toastError)
 		console.log(data)
 		deletingIDs.value = deletingIDs.value.filter(i => i != id)
@@ -33,8 +33,8 @@ export function useDeleteForm() {
 					if (res?.data?.success) {
 						toast.success(options.toastSuccess)
 						options.onSuccess?.(res)
-					} else onDeleteError(res, options)
-				}).catch(error => onDeleteError(error, options))
+					} else onDeleteError(id, res, options)
+				}).catch(error => onDeleteError(id, error, options))
 			}
 		})
 	}

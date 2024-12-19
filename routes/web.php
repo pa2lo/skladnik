@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
 	Route::get('/components/modals', fn() => inertia('Components/Modals'));
 	Route::get('/components/cards', fn() => inertia('Components/Cards'));
 	Route::get('/components/other', fn() => inertia('Components/Other'));
+	Route::get('/components/infotable', fn() => inertia('Components/InfoTable'));
 
 	Route::middleware('isAdmin')->group(function () {
 		Route::get('/users', [UsersController::class, 'index'])->name('users');
