@@ -201,7 +201,7 @@ function submitEditCell() {
 			</div>
 			<h3 class="divided">Data</h3>
 			<TableInfo>
-				<p>Drag&Drop table headers and rotate table</p>
+				<p>Drag&Drop table headers and switchable columns and rows. Operations uses useAppForms composable.</p>
 				<template #buttons>
 					<Button icon="plus" @click="showNewForm">Add record</Button>
 				</template>

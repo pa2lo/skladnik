@@ -202,8 +202,7 @@ class WarehouseItemsController extends Controller
     public function destroy(WarehouseItem $warehouseItem)
     {
         $warehouseItem->delete();
-		return response([
-			'success' => true
-		]);
+
+		return response(['success' => true]);
     }
 }
