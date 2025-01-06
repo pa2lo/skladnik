@@ -15,7 +15,7 @@ defineProps({
 	message: String
 })
 
-const isDemo = window.location.hostname == 'skladnik.pa2lo.net'
+const isDemo = import.meta.env.VITE_DEMO == "true"
 
 const form = useForm({
     email: isDemo ? 'demo@demo.demo' : '',

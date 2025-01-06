@@ -39,8 +39,8 @@ function switchTheme() {
 	document.documentElement.classList.toggle('theme-light', !isDark.value)
 }
 
-const isDemo = ['skladnik.pa2lo.net', '127.0.0.1'].some(h => window.location.host.startsWith(h))
 const isiOS = /iPhone|iPad|iPod/.test(window.navigator?.userAgentData?.platform || window.navigator.platform)
+const isDemo = import.meta.env.VITE_DEMO == "true"
 </script>
 
 <template>
