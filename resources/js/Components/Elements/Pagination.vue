@@ -41,6 +41,6 @@ const paginationLinks = computed(() => {
 			<Link class="pagination-link" :href="nextPage || '#'" title="Next" :class="{noAction: currentPage >= pages}"><Icon name="right" /></Link>
 			<Link class="pagination-link" :href="lastPage" title="Last" :class="{noAction: currentPage >= pages}"><Icon name="double-right" /></Link>
 		</div>
-		<div v-if="from && to && total" class="pagination-info lh1 text-light ml-a">{{ from }} - {{ to }} / {{ total }}</div>
+		<div v-if="from && to && total" class="pagination-info lh1 text-light ml-a rm-hide">{{ from }} - {{ to }} / {{ total }}</div>
 	</div>
 </template>

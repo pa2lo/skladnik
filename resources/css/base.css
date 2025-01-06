@@ -249,7 +249,6 @@ button, input, div[tabindex], a, .isClickable, .isLabel {
 }
 .logo:hover {
 	text-decoration: none;
-	opacity: 0.75;
 }
 
 /* menu */
@@ -274,6 +273,7 @@ button, input, div[tabindex], a, .isClickable, .isLabel {
 .sidemenu-hide-x {
 	font-size: 2.5rem;
 	padding: 0.375rem;
+	background-color: var(--body-background);
 }
 
 .sidemenu-backdrop, .sidemenu-menu {
@@ -303,8 +303,12 @@ button, input, div[tabindex], a, .isClickable, .isLabel {
 .sidemenu-logo {
 	padding: 0 0 min(var(--padding-big), 1.5rem);
 }
+.sidemenu-group {
+	margin-bottom: var(--line-gap);
+}
 .sidemenu-footer {
 	gap: .75rem;
+	margin-top: auto;
 }
 
 :where(.menuOpen) .sidemenu-backdrop,
@@ -351,7 +355,7 @@ button, input, div[tabindex], a, .isClickable, .isLabel {
 	opacity: var(--opacity, 0.7);
 	transition: opacity .15s;
 }
-.menu-link:hover, .menu-link.isActive, .mobile-nav-link.isActive, .menu-group.isOpen>.menu-link {
+.menu-link.isActive, .mobile-nav-link.isActive, .menu-group.isOpen>.menu-link {
 	--opacity: 1;
 }
 .menu-link.isActive, .mobile-nav-link.isActive {
@@ -488,6 +492,16 @@ button, input, div[tabindex], a, .isClickable, .isLabel {
 .page-previewlink.disabled {
 	opacity: .5;
 	pointer-events: none;
+}
+
+/* mobile hover */
+@media (pointer: fine) {
+	.logo:hover {
+		opacity: 0.75;
+	}
+	.menu-link:hover {
+		--opacity: 1;
+	}
 }
 
 /* media queries */

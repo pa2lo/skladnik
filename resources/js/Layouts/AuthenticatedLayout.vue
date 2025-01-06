@@ -39,7 +39,7 @@ function switchTheme() {
 	document.documentElement.classList.toggle('theme-light', !isDark.value)
 }
 
-const isDemo = ['skladnik.pa2lo.net', '127.0.0.1:8000'].includes(window.location.host)
+const isDemo = ['skladnik.pa2lo.net', '127.0.0.1'].some(h => window.location.host.startsWith(h))
 const isiOS = /iPhone|iPad|iPod/.test(window.navigator?.userAgentData?.platform || window.navigator.platform)
 </script>
 
@@ -52,15 +52,15 @@ const isiOS = /iPhone|iPad|iPod/.test(window.navigator?.userAgentData?.platform 
 				<ApplicationLogo />
 				<Icon class="sidemenu-hide-x isClickable ml-a l-hide" name="x" @click="menuOpen = !menuOpen" />
 			</div>
-			<div class="divided">
+			<div class="sidemenu-group divided">
 				<MenuLink link="/" activeRoute="/warehouse" icon="boxes">{{ txt('Warehouse') }}</MenuLink>
 				<MenuLink link="/changes" icon="history">{{ txt('List of changes') }}</MenuLink>
 			</div>
-			<div class="line divided" :class="{'mb-a': !installPrompt && !isDemo}">
+			<div class="sidemenu-group divided">
 				<MenuLink v-if="$page.props?.auth?.user?.role == 'admin'" activeRoute="/users" link="/users" icon="users">{{ txt('User accounts') }}</MenuLink>
 				<MenuLink link="/profile" icon="user-edit">{{ txt('Profile') }}</MenuLink>
 			</div>
-			<div v-if="isDemo || installPrompt" class="line divided mb-a">
+			<div v-if="isDemo || installPrompt" class="sidemenu-group divided">
 				<MenuGroup v-if="isDemo" :title="txt('Components')" icon="components" :active="['/components']">
 					<MenuLink link="/components">{{ txt('Inputs') }}</MenuLink>
 					<MenuLink link="/components/buttons">{{ txt('Buttons') }}</MenuLink>
@@ -73,7 +73,7 @@ const isiOS = /iPhone|iPad|iPod/.test(window.navigator?.userAgentData?.platform 
 				<MenuLink v-if="installPrompt" isButton icon="download" @click.prevent="installApp">{{ txt('Download app') }}</MenuLink>
 				<MenuLink v-if="isDemo" link="https://github.com/pa2lo/skladnik" icon="github" external>GitHub</MenuLink>
 			</div>
-			<div class="line divided sidemenu-footer flex ai-c">
+			<div class="sidemenu-footer divided flex ai-c">
 				<Button color="heading" size="compact" variant="outline" :icon="isDark ? 'sun' : 'moon'" bigIcon :title="isDark ? 'Light mode' : 'Dark mode'" @click="switchTheme" />
 				<Button color="link" size="compact" variant="outline" class="grow" link="/logout" icon="logout" method="post" as="button">{{ txt('Log Out') }}</Button>
 			</div>
