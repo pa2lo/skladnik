@@ -20,7 +20,7 @@ const panelsCont = ref(null)
 const tabs = computed(() => {
 	return slots.default().reduce((arr, item) => {
 		if (item.type.__name == 'Tab') arr.push(item)
-		else if (item.children.some(ch => ch.type.__name == 'Tab')) arr.push(...item.children.filter(ch => ch.type.__name == 'Tab'))
+		else if (Array.isArray(item.children) && item.children.some(ch => ch.type.__name == 'Tab')) arr.push(...item.children.filter(ch => ch.type.__name == 'Tab'))
 		return arr
 	}, [])
 })

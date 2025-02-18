@@ -39,7 +39,7 @@ function switchTheme() {
 	document.documentElement.classList.toggle('theme-light', !isDark.value)
 }
 
-const isiOS = /iPhone|iPad|iPod/.test(window.navigator?.userAgentData?.platform || window.navigator.platform)
+const isiOS = /iPad|iPhone|iPod/.test(navigator?.platform || navigator?.userAgentData?.platform) || (navigator?.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
 const isDemo = import.meta.env.VITE_DEMO == "true"
 </script>
 

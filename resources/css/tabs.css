@@ -27,6 +27,7 @@
 	scrollbar-width: none;
 	scroll-behavior: smooth;
 	position: relative;
+	overscroll-behavior: contain;
 }
 .tabs::-webkit-scrollbar {
 	display: none;

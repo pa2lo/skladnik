@@ -129,6 +129,9 @@
 	padding-block: .40625rem;
 	line-height: 1.5;
 }
+.dataTable-col-input .input-number-el {
+	padding-inline: .0625rem;
+}
 
 .table-info > :is(.input-wrapper, .button) {
 	margin-top: 0;
