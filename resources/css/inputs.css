@@ -150,22 +150,6 @@
 .input-text:is([type="date"], [type="time"], [type="datetime-local"])::-webkit-calendar-picker-indicator {
 	display: none;
 }
-@-moz-document url-prefix() {
-	.ico-clock-picker {
-		display: none;
-	}
-}
-@supports (-webkit-hyphens:none) {
-	.ico-clock-picker {
-		display: none;
-	}
-	.ico-date-picker {
-		display: none;
-	}
-	.input-text:is([type="date"], [type="time"], [type="datetime-local"]) {
-		appearance: none;
-	}
-}
 
 .input-textarea {
 	line-height: 1.25;
@@ -292,9 +276,6 @@
 	cursor: text;
 }
 .input-number {
-    -moz-appearance: textfield;
-}
-.input-number {
 	padding: .75em 0;
 	background: transparent;
 	border: none;
@@ -342,11 +323,7 @@
 
 .input-select-search-cont {
 	position: relative;
-	margin: -.625rem -.5rem .5rem;
-	background-color: inherit;
-	position: sticky;
-	top: -1rem;
-	z-index: 1;
+	margin: -.625rem -.5rem 1rem;
 }
 .input-select-search-cont:last-child {
 	margin-bottom: 0;
@@ -467,9 +444,12 @@
 	flex: 1;
 	border-radius: .125em;
 }
+.file-placeholder-button:not(:first-child) {
+	flex: 0;
+}
 .file-preview {
 	padding: 0 0.5rem 0 1em;
-	flex: 6 1 auto;
+	flex: 1 1 auto;
 	line-height: 1.25em;
 }
 .file-preview-name {
@@ -477,6 +457,7 @@
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	-webkit-line-clamp: 2;
+	line-clamp: 2;
 	word-break: break-word;
 }
 .file-preview-img {
@@ -716,4 +697,30 @@
 	width: 100%;
 	border-radius: 0.25em;
 	display: block;
+}
+
+/* browser fixes */
+@-moz-document url-prefix() {
+	.ico-clock-picker, .ico-date-picker {
+		display: none;
+	}
+	.input-text:is([type="date"], [type="time"], [type="datetime-local"]).wButton {
+		padding-right: .75em;
+	}
+	.input-number {
+		appearance: none;
+    	-moz-appearance: textfield;
+	}
+}
+@supports (-webkit-hyphens:none) {
+	.input-text:is([type="date"], [type="time"], [type="datetime-local"]) + .input-buttons :where(.ico-clock-picker, .ico-date-picker) {
+		pointer-events: none;
+	}
+	.input-text:is([type="date"], [type="time"], [type="datetime-local"]) {
+		appearance: none;
+		text-align-last: left;
+	}
+	.input {
+		min-height: 2.75rem;
+	}
 }

@@ -218,6 +218,9 @@ const spacingClasses = [
 		name: 'line',
 		note: 'row margin'
 	}, {
+		name: 'smaller-line',
+		note: 'smaller margin'
+	}, {
 		name: 'margin-bigger',
 		note: 'bigger margin'
 	}, {
@@ -316,6 +319,9 @@ const utilityClasses = [
 	}, {
 		name: 'touch-hide',
 		note: 'hide on device with coarse pointer'
+	}, {
+		name: 'info-cols',
+		note: 'show info in 2 columns above 700px viewport'
 	}
 ]
 
@@ -627,9 +633,9 @@ const dropdownLinkSlots = [
 					<DropdownLink icon="boxes" label="link 2" link="/dashboard" color="error" />
 					<DropdownLink label="link 3 - w onclick" @click="dialog.info('ok')" />
 					<hr>
-					<DropdownLink keepOpen label="Option 1" :checked="dropdownOption == 1" @click="setDropdownOption(1)" />
-					<DropdownLink keepOpen label="Option 2" :checked="dropdownOption == 2" @click="setDropdownOption(2)" />
-					<DropdownLink keepOpen label="Option 3" :checked="dropdownOption == 3" @click="setDropdownOption(3)" />
+					<DropdownLink keepOpen label="Option 1 keepOpen" :checked="dropdownOption == 1" @click="setDropdownOption(1)" />
+					<DropdownLink keepOpen label="Option 2 keepOpen" :checked="dropdownOption == 2" @click="setDropdownOption(2)" />
+					<DropdownLink label="Option 3" :checked="dropdownOption == 3" @click="setDropdownOption(3)" />
 					<hr>
 					<p>Some text content</p>
 					<hr>

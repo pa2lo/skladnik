@@ -11,6 +11,12 @@
 	background: color-mix(in srgb, var(--card-background) 60%, transparent);
 	cursor: wait;
 }
+.loader-cont:has(> .loader) {
+	min-height: 4rem;
+}
+.loader-cont:has(.loader > .loader-text) {
+	min-height: 6.75rem;
+}
 
 .loader-spinner::before {
 	content: '';

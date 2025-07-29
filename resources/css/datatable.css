@@ -83,7 +83,7 @@
 	position: absolute;
 	inset: 0;
 }
-.dataTable-col.isClickable:hover .basic-link, .dataTable-row.isClickable:hover .dataTable-col.isClickable {
+:is(.dataTable-col, .dataTable-row).isClickable:hover .basic-link, .dataTable-row.isClickable:hover .dataTable-col.isClickable {
 	text-decoration: none;
 }
 .dataTable-col-buttons {

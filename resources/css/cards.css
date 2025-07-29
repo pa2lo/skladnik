@@ -27,14 +27,14 @@
 	padding-block: 0.09375rem;
 }
 .card-actions {
-	margin: -0.0625rem -0.5rem -0.0625rem 1rem;
+	margin: -0.0625rem 0 -0.0625rem 1rem;
 	gap: 0.125rem;
 }
 .card-actions:has(.button-compact) {
 	margin-block: -.1875rem;
 }
-.card-actions:has(.button-outline:last-child) {
-	margin-right: 0;
+.card-actions:has(.button-plain:last-child) {
+	margin-right: -.5rem;
 }
 
 .card-footer {

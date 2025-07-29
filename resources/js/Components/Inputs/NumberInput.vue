@@ -80,6 +80,7 @@ defineExpose({
 				:readonly="readOnly"
 				:required="required"
 				:disabled="disabled"
+				inputmode="numeric"
 				:style="{'--chars': chars}"
 				ref="inputEl"
 				v-model="model"

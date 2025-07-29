@@ -2,12 +2,12 @@ import { ref, toRaw } from "vue"
 import { useForm } from "@inertiajs/vue3"
 
 export function useAppForms(defaultData) {
-	const newForm = useForm(defaultData)
+	const newForm = useForm(structuredClone(defaultData))
 	const editForm = useForm(defaultData)
 
 	const activeForm = ref({
 		type: 'newForm',
-		form: {}
+		form: newForm
 	})
 	const showModal = ref(false)
 

@@ -77,8 +77,6 @@
 	overflow: auto;
 	border-spacing: 0;
 	line-height: 1.25;
-}
-.infoTable :where(th) {
 	text-align: left;
 }
 .infoTable tbody tr {
@@ -163,4 +161,15 @@
 }
 .col-dragged ~ .col-drop {
 	box-shadow: inset -2px 0 0 var(--link-color);
+}
+
+/* info cols */
+@media screen and (min-width: 700px) {
+	.info-cols {
+		column-count: 2;
+		gap: 1rem;
+	}
+	.info-cols > div {
+		break-inside: avoid;
+	}
 }

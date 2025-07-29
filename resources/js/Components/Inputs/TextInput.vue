@@ -62,9 +62,9 @@ async function copy() {
 }
 
 function getPlaceholderByType() {
-	if (props.type == 'time') return '12:30'
-	if (props.type == 'date') return '30.03.2024'
-	if (props.type == 'datetime-local') return '30.03.2024, 12:30'
+	if (props.type == 'time') return '--:--'
+	if (props.type == 'date') return 'dd/mm/yyyy'
+	if (props.type == 'datetime-local') return 'dd/mm/yyyy, --:--'
 }
 const placeholder = computed(() => !props.placeholder && ['date', 'time', 'datetime-local'].includes(props.type) ? getPlaceholderByType() : props.placeholder)
 

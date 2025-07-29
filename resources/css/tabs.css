@@ -5,6 +5,7 @@
 	margin-top: calc(var(--line-gap) - .625rem);
 }
 .card-header + .card-body > .tabs-cont:not(.line):first-child,
+.card-header + .card-body > .loader-cont > .tabs-cont:not(.line):first-child,
 .tab-panels > .tab-content > .tabs-cont:not(.line):first-child {
 	margin-top: calc(var(--line-gap) * -1);
 }
@@ -42,7 +43,6 @@
 
 /* tab */
 .tabs-underline .tab, .tabs-outline .tab {
-	--tab-color-default: var(--heading-color);
 	--tab-color-hover: var(--link-color);
 }
 .tabs-underline .tab {
@@ -62,7 +62,7 @@
 	--tab-radius: 0.25em;
 }
 .tab {
-	--tab-color: var(--tab-color-default);
+	--tab-color: var(--heading-color);
 	background: var(--tab-background, transparent);
 	border: 1px solid;
 	border-color: var(--tab-border, transparent);

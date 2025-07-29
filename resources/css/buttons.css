@@ -1,11 +1,16 @@
 .buttons-row {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.5em;
+	gap: .625rem .75rem;
 	align-items: center;
 }
 .buttons-row .line {
 	margin-top: 0;
+}
+@container (max-width: 28rem) {
+	.buttons-row .button:not(.iconOnly) {
+		flex: 1 1 auto;
+	}
 }
 
 .ico-button, .button {

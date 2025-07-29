@@ -72,10 +72,11 @@ If you want to use this app in production, I highly recommend to:
 
 UI localization is available in sk.js file. To use localization you have to uncomment lines 10 and 11 in app.js file.
 
-App supports export to XLS with rap2hpoutre/fast-excel package. If you dont need XLS support, remove *fast-excel* package from *composer.json*, delete *composer.lock* file and run:
+App supports export to XLS with rap2hpoutre/fast-excel package. If you dont need XLS support, run:
 ```
-composer install
-composer dump-autoload
+composer remove rap2hpoutre/fast-excel
+composer update
+php artisan optimize:clear
 ```
 
 ## Update 12/24

@@ -282,7 +282,7 @@ function afterEnter() {
 		</select>
 		<Teleport v-if="destination" :to="destination">
 			<Transition name="fade" @afterEnter="afterEnter">
-				<ul
+				<div
 					v-if="isOpen"
 					ref="listboxEl"
 					:id="`list-${inputID}`"
@@ -301,7 +301,7 @@ function afterEnter() {
 					@focusout="onFocusout($event, true)"
 					@click.self="focusInputEl()"
 				>
-					<li v-if="hasSearchEvent" class="input-select-search-cont">
+					<div v-if="hasSearchEvent" class="input-select-search-cont">
 						<input
 							ref="searchInputEl"
 							class="input-select-search"
@@ -317,8 +317,8 @@ function afterEnter() {
 							@input="onSearchInput"
 						/>
 						<button v-if="searchModel.length" ref="resetFilterEl" class="input-select-search-x" type="button" @click.prevent="resetSearch"><Icon name="x" /></button>
-					</li>
-					<li v-else-if="searchable" class="input-select-search-cont">
+					</div>
+					<div v-else-if="searchable" class="input-select-search-cont">
 						<input
 							ref="filterInputEl"
 							class="input-select-search"
@@ -333,26 +333,28 @@ function afterEnter() {
 							@blur="onInputBlur"
 						/>
 						<button v-if="filter.length" ref="resetFilterEl" class="input-select-search-x" type="button" @click.prevent="filter = ''"><Icon name="x" /></button>
-					</li>
-					<li v-if="loading" class="dropdown-search flex aj-c"></li>
-					<template v-else>
-						<SelectInputOption
-							v-for="option in filteredOptions"
-							:id="`listitem-${inputID}-${option.value}`"
-							:checked="isMulti ? model.some(v => v == option.value) : model == option.value"
-							:disabled="option.disabled"
-							:current="focusedOption == option.value"
-							:value="option.value"
-							@mouseenter="() => focusedOption = option.value"
-							@mousedown.prevent="selectOption(option.value)"
-						>
-							<slot name="option" :option="option">{{ option.title }}</slot>
-						</SelectInputOption>
-						<li v-if="!options.length && !searchPrevValue && !filter" class="dropdown-text-empty">{{ noItemsText }}</li>
-						<li v-else-if="!filteredOptions.length && searchPrevValue.length" class="dropdown-text-empty">No results for "{{ searchPrevValue }}"</li>
-						<li v-else-if="!filteredOptions.length && filter.length" class="dropdown-text-empty">No results for "{{ filter }}"</li>
-					</template>
-				</ul>
+					</div>
+					<ul class="dropdown-select-list">
+						<li v-if="loading" class="dropdown-search flex aj-c"></li>
+						<template v-else>
+							<SelectInputOption
+								v-for="option in filteredOptions"
+								:id="`listitem-${inputID}-${option.value}`"
+								:checked="isMulti ? model.some(v => v == option.value) : model == option.value"
+								:disabled="option.disabled"
+								:current="focusedOption == option.value"
+								:value="option.value"
+								@mouseenter="() => focusedOption = option.value"
+								@mousedown.prevent="selectOption(option.value)"
+							>
+								<slot name="option" :option="option">{{ option.title }}</slot>
+							</SelectInputOption>
+							<li v-if="!options.length && !searchPrevValue && !filter" class="dropdown-text-empty">{{ noItemsText }}</li>
+							<li v-else-if="!filteredOptions.length && searchPrevValue.length" class="dropdown-text-empty">No results for "{{ searchPrevValue }}"</li>
+							<li v-else-if="!filteredOptions.length && filter.length" class="dropdown-text-empty">No results for "{{ filter }}"</li>
+						</template>
+					</ul>
+				</div>
 			</Transition>
 		</Teleport>
 		<template v-if="$slots.default" #note><slot></slot></template>

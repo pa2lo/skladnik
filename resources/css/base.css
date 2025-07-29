@@ -113,6 +113,7 @@ h1, h2, h3, h4, h5, h6 {
 .margin-bigger:not(:first-child) { margin-top: var(--padding-medium); }
 :is(.card-group, .section, .card):not(:first-child) { margin-top: var(--padding-big); }
 :where(h2, h3, h4, h5, h6, p, .line, .inputs-grid, .card-body, .card-footer, .form-section, ul:not([class])):not(:first-child) { margin-top: var(--line-gap); }
+.smaller-line:not(:first-child) { margin-top: calc(var(--line-gap) * 0.625); }
 
 h1, .likeH1 { font-size: 2rem; }
 h2, .likeH2 { font-size: 1.75rem; }

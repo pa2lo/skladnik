@@ -28,11 +28,21 @@
 }
 
 .dropdown-select {
-	list-style: none;
 	margin: 0;
 	width: var(--dd-w);
 	max-height: min(21rem, 60dvh);
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+.dropdown-select-list {
+	padding: 1rem 1.125rem;
+	margin: -1rem -1.125rem;
 	overflow: auto;
+	list-style: none;
+	overscroll-behavior: contain;
+	scrollbar-width: thin;
+	scrollbar-color: color-mix(in srgb, var(--link-color) 24%, var(--card-background)) color-mix(in srgb, transparent 20%, var(--body-background));
 }
 
 .dropdown-menu {
@@ -55,6 +65,7 @@
 	font: inherit;
 	border: none;
 	padding: .5rem .625rem;
+	scroll-margin-block: .5rem;
 	line-height: calc(18/14);
 	border-radius: .25rem;
 	margin-inline: -.625rem;
@@ -123,14 +134,13 @@
 }
 
 .dropdown-text-empty, .dropdown-search {
-	padding: .5rem 0;
-	margin-bottom: -.5em;
+	line-height: calc(18/14);
 }
 
 .dropdown-search::after {
 	content: '';
 	display: block;
-	margin: auto;
+	margin: -.3125rem auto;
 	width: 2em;
 	height: 2em;
 	border: 0.1875em solid var(--heading-color);
