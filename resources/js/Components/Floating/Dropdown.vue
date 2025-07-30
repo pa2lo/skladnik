@@ -112,7 +112,9 @@ function focusLastEl() {
 
 function onFocusout(e) {
 	if (!isOpen.value || (e.relatedTarget && (dropdownEl.value.contains(e.relatedTarget) || e.relatedTarget == togglerEl.value))) return
-	closeDropdown()
+	requestAnimationFrame(() => {
+		closeDropdown()
+	})
 }
 function onTabKey(e) {
 	if (!e.altKey && !e.ctrlKey) e.preventDefault()

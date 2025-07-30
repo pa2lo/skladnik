@@ -534,7 +534,7 @@ const dropdownLinkSlots = [
 					<Button>Tooltip hoverable touch</Button>
 					<template #tooltip>
 						<p>Complex tooltip in slot</p>
-						<p><Button size="compact">Button</Button></p>
+						<p><Button size="compact" @click="toast.success('tooltip click')">Button</Button></p>
 					</template>
 				</Tooltip>
 			</div>

@@ -51,7 +51,7 @@ function handleCancel(e) {
 	if (props.touch && e.pointerType == 'touch' && show.value) return show.value = false
 }
 function handleLeave(e) {
-	if ( !show.value || (e.relatedTarget?.contains(tooltipEl.value) || tooltipCont.value.contains(e.relatedTarget)) ) return
+	if ( !show.value || (e.relatedTarget?.contains(tooltipEl.value) || tooltipCont.value.contains(e.relatedTarget)) || (props.hoverable && tooltipEl.value.contains(e.relatedTarget)) ) return
 	show.value = false
 }
 </script>
@@ -79,7 +79,7 @@ function handleLeave(e) {
 				'--tt-ww': coords.ww,
 				'--tt-ofTop': coords.ofTop
 			}"
-			@pointerleave.passive="handleLeave"
+			@mouseleave.passive="handleLeave"
 		>
 			<slot name="tooltip">
 				<div v-html="tooltip"></div>

@@ -1,129 +1,171 @@
-let tooltipIDCounter = 1
-const tooltipsMap = {}
+const tooltipsMap = new WeakMap()
 
 export const tooltip = {
 	mounted(el, binding) {
 		if (!binding.value?.text && !binding.value) return
 
-		let tooltipId = `tooltip-${tooltipIDCounter++}`
-		el.dataset.tooltipId = tooltipId
-
-		tooltipsMap[tooltipId] = {
+		const tooltipData = {
 			touch: binding.value?.touch || binding.modifiers.touch,
 			hoverable: binding.value?.hoverable || binding.modifiers.hoverable,
 			width: binding.value?.width || 'normal',
 			wrapper: null,
 			destination: null,
 			show: false,
-			text: binding.value?.text || binding.value
+			text: binding.value?.text || binding.value,
+			tooltipEl: null,
+			eventHandlers: {}
 		}
-		addEvents(el, tooltipId)
+
+		tooltipsMap.set(el, tooltipData)
+		addEvents(el)
 	},
 	beforeUnmount(el) {
-		if (!el.dataset.tooltipId) return
+		const tooltipData = tooltipsMap.get(el)
+		if (!tooltipData) return
 
-		let tooltipId = el.dataset.tooltipId
-		if (tooltipsMap[tooltipId]?.show) destroyTooltip(tooltipId)
-		delete tooltipsMap[tooltipId]
+		const handlers = tooltipData.eventHandlers
+		if (handlers.handleEnter) el.removeEventListener('pointerenter', handlers.handleEnter)
+		if (handlers.handleCancel) el.removeEventListener('pointercancel', handlers.handleCancel)
+		if (handlers.handleLeave) el.removeEventListener('mouseleave', handlers.handleLeave)
+
+		if (tooltipData.show) destroyTooltip(el)
+		tooltipsMap.delete(el)
 	},
 	beforeUpdate(el, binding) {
-		if (!el.dataset.tooltipId || binding.oldValue == binding.value) return
+		const tooltipData = tooltipsMap.get(el)
+		if (!tooltipData || binding.oldValue === binding.value) return
 
-		let tooltipId = el.dataset.tooltipId
-		tooltipsMap[tooltipId].text = binding.value?.text || binding.value
+		const newText = binding.value?.text || binding.value
+		tooltipData.text = newText
 
-		if (tooltipsMap[tooltipId].show) updateTooltipContent(tooltipId)
+		if (tooltipData.show) {
+			if (newText) updateTooltipContent(el)
+			else destroyTooltip(el)
+		}
 	}
 }
 
-function setDestination(el, tooltipId) {
-	let wrapper = el.closest('.overflowCont') ?? document.documentElement
-	tooltipsMap[tooltipId].wrapper = wrapper
-	tooltipsMap[tooltipId].destination = wrapper == document.documentElement ? document.body : wrapper
+function setDestination(el) {
+	const tooltipData = tooltipsMap.get(el)
+	if (!tooltipData) return
+
+	const wrapper = el.closest('.overflowCont') ?? document.documentElement
+	tooltipData.wrapper = wrapper
+	tooltipData.destination = wrapper === document.documentElement ? document.body : wrapper
 }
 
-function addEvents(el, tooltipId) {
-	const handleEnterFunction = (e) => handleEnter(e, el, tooltipId)
-	const handleCancelFunction = (e) => handleCancel(e, el, tooltipId)
-	const handleLeaveFunction = (e) => handleLeave(e, el, tooltipId)
+function addEvents(el) {
+	const tooltipData = tooltipsMap.get(el)
+	if (!tooltipData) return
+
+	const handleEnterFunction = (e) => handleEnter(e, el)
+	const handleCancelFunction = (e) => handleCancel(e, el)
+	const handleLeaveFunction = (e) => handleLeave(e, el)
+
+	tooltipData.eventHandlers = {
+		handleEnter: handleEnterFunction,
+		handleCancel: handleCancelFunction,
+		handleLeave: handleLeaveFunction
+	}
 
 	el.addEventListener('pointerenter', handleEnterFunction, {passive: true})
 	el.addEventListener('pointercancel', handleCancelFunction, {passive: true})
 	el.addEventListener('mouseleave', handleLeaveFunction, {passive: true})
 }
 
-function createTooltipEl(el, tooltipId) {
-	if (!tooltipsMap[tooltipId]?.text) return
+function createTooltipEl(el) {
+	const tooltipData = tooltipsMap.get(el)
+	if (!tooltipData?.text) return
 
-	let element = document.createElement("div")
-	element.id = tooltipId
-	element.className = `tooltip tooltip-${tooltipsMap[tooltipId].width}`
-	element.innerHTML = tooltipsMap[tooltipId].text || ''
+	const element = Object.assign(document.createElement('div'), {
+		className: `tooltip tooltip-${tooltipData.width}${tooltipData.hoverable ? ' isHoverable' : ''}`,
+		innerHTML: tooltipData.text
+	})
 
-	if (tooltipsMap[tooltipId].hoverable) {
-		element.classList.add('isHoverable')
-		const handleLeaveFunction = (e) => handleLeave(e, el, tooltipId)
-		element.addEventListener('pointerleave', handleLeaveFunction)
+	if (tooltipData.hoverable) {
+		const handleLeaveFunction = (e) => handleLeave(e, el)
+		element.addEventListener('mouseleave', handleLeaveFunction, {passive: true})
 	}
 
 	return element
 }
 
-function updateTooltipContent(tooltipId) {
-	if (!tooltipsMap[tooltipId].tooltipEl) return
+function updateTooltipContent(el) {
+	const tooltipData = tooltipsMap.get(el)
+	if (!tooltipData?.tooltipEl) return
 
-	if (!tooltipsMap[tooltipId].text) return destroyTooltip(tooltipId)
+	if (!tooltipData.text) return destroyTooltip(el)
 
-	tooltipsMap[tooltipId].tooltipEl.innerHTML = tooltipsMap[tooltipId].text
+	tooltipData.tooltipEl.innerHTML = tooltipData.text
 }
 
-function handleEnter(e, el, tooltipId) {
-	if (!tooltipsMap[tooltipId]?.text) return
+function handleEnter(e, el) {
+	const tooltipData = tooltipsMap.get(el)
+	if (!tooltipData?.text) return
 
-	const isTouch = e.pointerType == 'touch'
-	if (!tooltipsMap[tooltipId].touch && isTouch) return
+	const isTouch = e.pointerType === 'touch'
+	if (!tooltipData.touch && isTouch) return
 
-	if (isTouch && tooltipsMap[tooltipId].show) return destroyTooltip(tooltipId)
+	if (isTouch && tooltipData.show) return destroyTooltip(el)
 
-	if (tooltipsMap[tooltipId].show) return
+	if (tooltipData.show) return
 
-	if (!tooltipsMap[tooltipId].destination) setDestination(el, tooltipId)
+	if (!tooltipData.destination) setDestination(el)
 
-	let tooltipEl = createTooltipEl(el, tooltipId)
+	const tooltipEl = createTooltipEl(el)
+	if (!tooltipEl) return
 
-	setCoords(tooltipEl, el, tooltipsMap[tooltipId].wrapper)
+	setCoords(tooltipEl, el, tooltipData.wrapper)
 
-	tooltipsMap[tooltipId].tooltipEl = tooltipEl
-	tooltipsMap[tooltipId].destination.append(tooltipEl)
-	tooltipsMap[tooltipId].show = true
+	tooltipData.tooltipEl = tooltipEl
+	tooltipData.destination.append(tooltipEl)
+	tooltipData.show = true
 }
 
-function handleCancel(e, el, tooltipId) {
-	if (!tooltipsMap[tooltipId].text) return
+function handleCancel(e, el) {
+	const tooltipData = tooltipsMap.get(el)
+	if (!tooltipData?.text) return
 
-	if (tooltipsMap[tooltipId].touch && e.pointerType == 'touch' && tooltipsMap[tooltipId].show) return destroyTooltip(tooltipId)
+	if (tooltipData.touch && e.pointerType === 'touch' && tooltipData.show) return destroyTooltip(el)
 }
 
-function handleLeave(e, el, tooltipId) {
-	if ( !tooltipsMap[tooltipId]?.show || (e.relatedTarget?.contains(tooltipsMap[tooltipId].tooltipEl) || el.contains(e.relatedTarget)) ) return
-	destroyTooltip(tooltipId)
+function handleLeave(e, el) {
+	const tooltipData = tooltipsMap.get(el)
+	if (!tooltipData?.show) return
+
+	const relatedTarget = e.relatedTarget
+	if (!relatedTarget) return destroyTooltip(el)
+
+	const isLeavingToTooltip = tooltipData.tooltipEl?.contains(relatedTarget)
+	const isLeavingToTrigger = el.contains(relatedTarget)
+
+	if (!isLeavingToTooltip && !isLeavingToTrigger) destroyTooltip(el)
 }
 
-function destroyTooltip(tooltipId) {
-	if (!tooltipsMap[tooltipId].tooltipEl) return
+function destroyTooltip(el) {
+	const tooltipData = tooltipsMap.get(el)
+	if (!tooltipData?.tooltipEl) return
 
-	tooltipsMap[tooltipId].tooltipEl.remove()
-	tooltipsMap[tooltipId].tooltipEl = null
-	tooltipsMap[tooltipId].show = false
+	tooltipData.tooltipEl.remove()
+	tooltipData.tooltipEl = null
+	tooltipData.show = false
 }
 
 function setCoords(tooltipEl, tooltipCont, tooltipWrapper) {
-	let { left, top, width, height } = tooltipCont.getBoundingClientRect()
+	requestAnimationFrame(() => {
+		const { left, top, width, height } = tooltipCont.getBoundingClientRect()
 
-	tooltipEl.style.setProperty('--tt-w', `${width}px`)
-	tooltipEl.style.setProperty('--tt-h', `${height}px`)
-	tooltipEl.style.setProperty('--tt-l', `${left}px`)
-	tooltipEl.style.setProperty('--tt-t', `${top}px`)
-	tooltipEl.style.setProperty('--tt-ww', `${tooltipWrapper.clientWidth}px`)
-	tooltipEl.style.setProperty('--tt-ofTop', `${top + tooltipWrapper.scrollTop}px`)
+		const styles = {
+			'--tt-w': `${width}px`,
+			'--tt-h': `${height}px`,
+			'--tt-l': `${left}px`,
+			'--tt-t': `${top}px`,
+			'--tt-ww': `${tooltipWrapper.clientWidth}px`,
+			'--tt-ofTop': `${top + tooltipWrapper.scrollTop}px`
+		}
+
+		Object.entries(styles).forEach(([prop, value]) => {
+			tooltipEl.style.setProperty(prop, value)
+		})
+	})
 }
