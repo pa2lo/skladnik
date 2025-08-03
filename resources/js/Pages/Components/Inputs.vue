@@ -43,23 +43,15 @@ const rangeInputTest = ref(2)
 const rangeInputTest2 = ref(4)
 const combinedNumberTest = ref(6)
 
-const selectOptions = [
-	{
-		title: 'Option 1',
-		value: 'option1'
-	}, {
-		title: 'Option 2',
-		value: 'option2'
-	}, {
-		title: 'Option 3',
-		value: 'option3',
-		disabled: true
-	}, {
-		title: 'Option 4',
-		value: 'option4',
-		disabled: true
+const selectOptions = []
+for (let i = 1; i < 5; i++) {
+	let newOption = {
+		title: `Optione ${i}`,
+		value: `option${i}`
 	}
-]
+	if (i == 3 || i == 4) newOption.disabled = true
+	selectOptions.push(newOption)
+}
 
 const radioButtonsOptions = [
 	{

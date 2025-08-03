@@ -131,7 +131,7 @@ function deselectOption(value) {
 
 const filter = ref('')
 const filteredOptions = computed(() => {
-	if (!filter.value && !isMulti && props.allowEmpty) return [{title: props.placeholder, value: ''}, ...props.options]
+	if (!filter.value && !isMulti && props.options.length && props.allowEmpty) return [{title: props.placeholder, value: ''}, ...props.options]
 	let fvLowercase = filter.value.toLocaleLowerCase()
 	return props.options.filter(o => o.title.toLowerCase().includes(fvLowercase) || props.searchableFields.some(key => o[key] && String(o[key]).toLocaleLowerCase().includes(fvLowercase)))
 })

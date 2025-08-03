@@ -155,6 +155,8 @@
 	line-height: 1.25;
 	padding-block: 0.875em;
 	resize: vertical;
+	scrollbar-width: thin;
+	scrollbar-color: color-mix(in srgb, var(--heading-color) var(--light, 25%) var(--dark, 35%), var(--input-background)) transparent;
 }
 
 .input-select {
