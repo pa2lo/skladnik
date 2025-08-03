@@ -5,7 +5,7 @@ import { txt } from '@/Utils/helpers'
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import Card from '@/Components/Elements/Card.vue'
-import Pagination from '@/Components/Elements/Pagination.vue'
+import LaravelPagination from '@/Components/Elements/LaravelPagination.vue'
 import TableInfo from '@/Components/Table/TableInfo.vue'
 import DataTable from '@/Components/Table/DataTable.vue'
 import Column from '@/Components/Table/Column.vue'
@@ -119,19 +119,7 @@ let todayDate = new Date().toLocaleDateString('en-ca')
 					</Column>
 				</DataTable>
 			</Loader>
-			<Pagination
-				v-if="changes.links"
-				:currentPage="changes.current_page"
-				:links="changes.links"
-				:prevPage="changes.prev_page_url"
-				:nextPage="changes.next_page_url"
-				:firstPage="changes.first_page_url"
-				:lastPage="changes.last_page_url"
-				:pages="changes.last_page"
-				:from="changes.from"
-				:to="changes.to"
-				:total="changes.total"
-			/>
+			<LaravelPagination :data="changes" />
 		</Card>
 	</AuthenticatedLayout>
 </template>

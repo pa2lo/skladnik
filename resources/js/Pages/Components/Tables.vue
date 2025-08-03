@@ -158,7 +158,9 @@ const paginationCodeExample = `const paginationLinks = [
  :from="1"
  :to="10"
  :total="100"
-/>`
+/>
+
+<LaravelPagination :data="data" />`
 const paginationProps = [
 	{
 		name: 'links',
@@ -191,6 +193,13 @@ const paginationProps = [
 	}, {
 		name: 'total',
 		type: 'Number'
+	}
+]
+const laravelPaginationProps = [
+	{
+		name: 'data',
+		type: 'Object',
+		note: 'expected structure of the Laravels "paginate" query method'
 	}
 ]
 
@@ -457,7 +466,8 @@ const filterTagsSlots = [
 						{{ paginationCodeExample }}
 					</Accordion>
 				</div>
-				<TableProps header="Props" :properties="paginationProps" />
+				<TableProps header="Props - Pagination" :properties="paginationProps" />
+				<TableProps header="Props - LaravelPagination" :properties="laravelPaginationProps" />
 			</Modal>
 		</Card>
 	</AuthenticatedLayout>
